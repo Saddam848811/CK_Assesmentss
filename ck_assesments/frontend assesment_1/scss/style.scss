@@ -1,0 +1,177 @@
+@import 'partials/var';
+@import 'partials/mixins';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; 
+}
+
+html, body {
+  font-family: $font-family-base;
+  background-color: white;
+  height: 100%;
+}
+
+.border-check{
+    border: $border-width $border-style $border-color;
+}
+
+.center-div{
+    height: 100%;
+    margin-left: $margin-content-sides;
+    margin-right: $margin-content-sides;
+    //   margin: 0 20px;
+}
+
+.our-clients{
+    height: 190px;
+}
+
+.our-clients-heading-con{
+    height: 76px;
+}
+
+.our-clients-heading{
+    @include heading-style($font-size-lg, $heading-color);
+}
+
+.text-center{
+    @include text-center;
+}
+
+.our-clients-para {
+    font-size: $font-size-sm;
+    color: #717171;
+}
+
+.our-clients-logo-con{
+    @include flex-container(row, space-between, center, nowrap);
+    padding: $padding-default;
+    max-width: 100%;
+    margin-top: $gap-small;
+}
+
+.our-clients-logo-con img {
+  @include image-box($image-size-logo, $image-size-logo, contain);
+}
+
+.manage-section-con{
+    margin-top: $margin-section-top;
+}
+
+.manage-sec-para{
+    margin-top: 8px;
+}
+
+.manage-sec-image-con {
+    @include flex-container(row, center, center, wrap);
+    gap: $gap-large;
+    margin-top: 26px;
+}
+
+.manage-sec-image-con img {
+  @include image-box($image-width-card, $image-height-card, cover);
+}
+
+.unseen-sec-con{
+    // height: 420px;
+    margin-top: 42px;
+    @include flex-container();
+}
+
+.unseen-sec-right-sec {
+    margin-top: 82px;
+    margin-bottom: 82px;
+    margin-left: 46px;
+}
+
+.primary-button{
+    @include button-style($button-bg, $button-text-color, $button-border-color, $button-padding, $button-radius, $button-font-size);
+    height: 52px;
+    width: 151px;
+    margin-top: $gap-medium;
+}
+
+.right-sec-para{
+    margin-top: $gap-small;
+}
+
+.unseen-sec-img-con{
+    margin-left: 144px;
+}
+
+.getademo-sec-con{
+    height: 300px;
+    background-color:#F5F7FA;
+    margin-top: 28px;
+}
+
+.geatademo-sec-heading{
+    @include heading-style($font-size-xl, $footer-bg-color);
+    padding-top: $gap-medium;
+}
+
+.getademo-sec-button{
+    width: 178px;
+    height: 52px;
+    display: block;     /* Ensure it behaves like a block element */
+    margin-left: 631px;
+}
+
+.geatademo-sec-button-con{
+    padding-top: $gap-medium;
+}
+
+.footer-con{
+    height: 328px;
+    background-color: $footer-bg-color;
+    @include flex-container();
+    align-items: center;
+}
+
+.footer-left-sec-con{
+    height: 189px;
+    width: 350px;
+    margin-left: $margin-content-sides;
+    @include flex-container(column, space-between, flex-start);
+}
+
+.footer-right-sec-con{
+    height: 189px;
+    width: 635px;
+    margin-left: 125px;
+    @include flex-container(row, space-between, stretch, nowrap);
+}
+
+.footer-left-para{
+    color: $footer-text-color;
+}
+
+.company{
+    height: 200px;
+    width: 160px;
+}
+
+.company-heading h1{
+    @include heading-style($font-size-md, #FFFFFF);
+}
+
+.company-heading p{
+    color: $footer-text-color;
+}
+
+.support{
+    height: 200px;
+    width: 160px;
+}
+
+.date{
+    height: 92px;
+    width: 255px;
+}
+
+.main-body{
+    display: flex;
+    flex-direction: column;
+}

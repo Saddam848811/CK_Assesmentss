@@ -1,0 +1,69 @@
+1-Find and terminate the top memory-consuming process on your system.
+
+saddam-husain@CK-saddamhusain:~$ top
+then press M = "this will sort processes according to memory usage %MEM has
+                the highest value for the process"
+
+To terminate the process = Kill <Pid>
+///////////////////////////////////////////////////////////////////////////////////
+2-Create a user named devops and grant them sudo privileges.
+create new user  = sudo adduser devops
+
+give user sudo privileges = sudo usermod -aG sudo devops
+    usermod → modify user
+    -aG sudo → add user to sudo group
+    devops → user to be added
+//////////////////////////////////////////////////////////////////////////////////////
+3-Connect to a remote server, create a directory, and copy files into it using SCP.
+scp shell_count.txt shreyash-srivastava@10.1.211.43:/home/shreyash-srivastava/
+ssh shreyash-srivastava@10.1.211.43
+
+
+///////////////////////////////////////////////////////////////////////////////////////
+4-List all active processes and save only those containing the word java into a file.
+    ps aux | grep java > java_processes.txt
+////////////////////////////////////////////////////////////////////////////////////////
+5-Generate an SSH key pair and configure it for two different remote servers.
+
+
+
+/////////////////////////////////////////////////////////////////////////////
+6-Find all lines containing “error” in /var/log/syslog and redirect them to errors_found.txt
+grep -i "error" /var/log/syslog
+////////////////////////////////////////////////////////////////////////////
+7-Find all .conf files in /etc, sort them alphabetically, and save to conf_list.txt.
+sudo find /etc -type f -name "*.conf" | sort > /home/saddam-husain/conf_list.txt
+////////////////////////////////////////////////////////////////////////////////
+8-Explore vi/vim for  Creating a text file. Understand cursor movement,
+ switching input mode (append, insert etc), deleting command, pasting content,
+  undo , redo ,search , save and quit operations in vim. 
+
+i = Insert before the cursor
+Esc = Switch to Normal Mode
+h, j, k, l or arrow keys=  Move cursor left, down, up, right
+dd  = Delete a line
+yy = Copy a line
+p = Paste after the cursor
+u = undo
+Ctrl + r = Redo
+/text = Search for "text"
+:wq or :x = Save and quit
+:q! = Quit without saving
+////////////////////////////////////////////////////////////////////////////////
+9-Reset the current user password and reboot the system form shell. 
+
+passwd
+sudo reboot
+//////////////////////////////////////////////////////////////////////////
+10-Zip the content of your home directory via tar and send it via scp to other
+person laptop. Unzip the content on other person laptop via tar. 
+
+tar -czvf archive_name.tar.gz /path/to/directory
+-c : Create a new archive
+-z : Compress the archive using gzip
+-v : Verbose (shows the progress)
+-f : Specifies the filename of the archive
+~/ : Your home directory (~ refers to the home directory)
+
+scp home_directory_backup.tar.gz username@remote_ip:/path/to/destination
+

@@ -1,0 +1,60 @@
+$primary-color: #f5f5f5;             
+$secondary-color: #4CAF50;           
+$border-color: #000000;              
+
+// Text colors
+$heading-color: #222222;            
+$para-color: #b3b3b3;               
+$footer-text-color: #b3b3b3;        
+
+// Background colors
+$footer-bg-color: #263238;          
+$section-bg-light: #fafafa;          
+
+
+// Typography
+$font-family-base: 'Arial', sans-serif;
+
+// Font sizes
+$font-size-xl: 64px;    
+$font-size-lg: 36px;    
+$font-size-md: 20px;     
+$font-size-sm: 16px;     
+
+// Font weights
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+
+// 📏 Spacing & Layout
+$margin-section-top: 40px;
+$margin-content-sides: 165px;
+$padding-default: 10px 20px;
+
+$gap-large: 200px;
+$gap-medium: 32px;
+$gap-small: 16px;
+
+
+// ⚙️ Borders & Radius
+$border-width: 2px;
+$border-style: solid;
+$border-radius-sm: 4px;
+
+
+// 🧱 Buttons
+$button-bg: $secondary-color;
+$button-text-color: #ffffff;
+$button-border-color: $secondary-color;
+$button-padding: 14px 32px;
+$button-font-size: 16px;
+$button-radius: $border-radius-sm;
+
+
+// 🖼️ Images
+$image-size-logo: 48px;        
+$image-width-card: 299px;      
+$image-height-card: 260px;
+
+
+

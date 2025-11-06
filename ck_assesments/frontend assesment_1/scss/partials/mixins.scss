@@ -1,0 +1,56 @@
+// FLEX CONTAINER
+@mixin flex-container($direction: row, $justify: flex-start, $align: stretch, $wrap: nowrap) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  flex-wrap: $wrap;
+}
+
+// CENTER ELEMENT
+@mixin center-element {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+// BUTTON STYLING
+@mixin button-style($bg, $color, $border-color, $padding: 14px 32px, $radius: 4px, $font-size: 16px) {
+  background-color: $bg;
+  color: $color;
+  border: 2px solid $border-color;
+  padding: $padding;
+  font-size: $font-size;
+  border-radius: $radius;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+// IMAGE BOX
+@mixin image-box($width, $height, $fit: cover) {
+  width: $width;
+  height: $height;
+  object-fit: $fit;
+}
+
+// HEADING STYLING
+@mixin heading-style($size, $color: black, $weight: 400) {
+  font-size: $size;
+  color: $color;
+  font-weight: $weight;
+}
+
+// SPACING
+@mixin margin($top: 0, $right: 0, $bottom: 0, $left: 0) {
+  margin-top: $top;
+  margin-right: $right;
+  margin-bottom: $bottom;
+  margin-left: $left;
+}
+
+// TEXT CENTER
+@mixin text-center {
+  text-align: center;
+}

@@ -1,0 +1,16 @@
+var arr = [4,3,2,1]
+console.log("unsorted array" , arr)
+
+for(var i=0;i<arr.length-1;i++){
+
+    for(var j=i+1;j<arr.length;j++){
+
+        if(arr[i]>arr[j]){
+            var temp = arr[i]
+            arr[i] = arr[j]
+            arr[j] = temp
+        }
+    }
+
+}
+console.log(arr)
