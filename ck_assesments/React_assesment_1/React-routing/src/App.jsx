@@ -18,8 +18,8 @@ function App() {
     <Route path="/counter" element={<Counter />} />
     <Route path="/timer" element={<Timer />} />
   </Route>
-
   <Route path="*" element={<NotFound />} />
+
 </Routes>
 
     </>

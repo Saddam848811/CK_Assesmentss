@@ -7,28 +7,49 @@ const person = {
     country: "Fantasy",
     geo: {
       lat: 12.3456,
-      lng: 65.4321
-    }
+      lng: 65.4321,
+    },
   },
 };
 
-const obj = {};
 
-function flat(person){
+const obj = {}
+function flat(person) {
 
-    Object.keys(person).forEach((ci)=>{
+  Object.keys(person).forEach((ci) => {
 
-        if(typeof person[ci] !== 'object' && typeof person[ci] !== null && typeof person[ci] !== undefined ){
-            obj[ci] = person[ci];
-        }else{
-            flat(person[ci])
-        }
 
-    })
+    console.log(typeof person[ci]);
+    if(typeof person[ci] !== 'object' ){
+
+      obj[ci] = person[ci]
+
+    }else{
+      flat(person[ci])
+    }
+  });
 }
 
-flat(person);
-console.log(obj );
+flat(person)
+
+console.log(obj,'lllllllllllll');
 
 
+// const obj = {};
 
+// function flat(person) {
+//   Object.keys(person).forEach((ci) => {
+//     if (
+//       typeof person[ci] !== "object" &&
+//       typeof person[ci] !== null &&
+//       typeof person[ci] !== undefined
+//     ) {
+//       obj[ci] = person[ci];
+//     } else {
+//       flat(person[ci]);
+//     }
+//   });
+// }
+
+// flat(person);
+// console.log(obj);
