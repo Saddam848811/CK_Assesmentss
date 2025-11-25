@@ -1,22 +1,17 @@
-import React, { useContext, useEffect } from 'react'
-import ChildB from './ChildB'
-import { ColorContext, a } from './ContextProvider'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { increment } from '../redux/Actions';
 
 function ChildA() {
-
-
-    const {setCount,count} = useContext(ColorContext)
-    useEffect(()=>{
-        setCount(1)
-    },[])
-
-    console.log(count,'child A');
-    
-    
-
+  const count = useSelector(state => state.count) // ✅ correct
+  console.log(count);
+  
+const dispatch = useDispatch();
   return (
     <div>
-      <h1>child A</h1>
+      <h1>Child A</h1>
+      {/* <p>Count: {count}</p> */}
+      <button onClick={() => dispatch(increment())}>Increment</button>
     </div>
   )
 }

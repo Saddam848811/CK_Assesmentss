@@ -7,6 +7,8 @@ import Reducer from './component/Reducer'
 import Memo from './component/Memo'
 // import Anotherpage from './component/Anotherpage'
 import CallBack from './component/CallBack'
+import ChildA from './component/ChildA'
+import Parent from './component/Parent'
 
 function App() {
 
@@ -26,8 +28,8 @@ function App() {
   {/* <Test/> */}
   {/* <Reducer/> */}
       {/* <Memo/> */}
-<CallBack/>
-
+{/* <CallBack/> */}
+      <Parent/>
   {/* <ABC/> */}
     </>
   )

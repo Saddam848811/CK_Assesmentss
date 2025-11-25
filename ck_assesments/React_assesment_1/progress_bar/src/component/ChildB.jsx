@@ -3,13 +3,6 @@ import {ColorContext} from './ContextProvider'
 
 function ChildB() {
 
-   const {dispatch} = useContext(ColorContext);
-
-   useEffect(()=>{
-
-       dispatch({type:"addone"})
-   },[])
-   
 
   return (
     <div>
