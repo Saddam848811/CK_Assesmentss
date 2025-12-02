@@ -1,18 +1,27 @@
 import React from "react";
 import ChildA from "./ChildA";
 import ChildB from "./ChildB";
-import { Provider } from "react-redux";
-import store from "../redux/Store";
+import { Provider, useDispatch, useSelector } from "react-redux";
+import { increment } from "../redux/Actions";
+import { useEffect } from "react";
+import { useState } from "react";
 
 function Parent() {
+  const count = useSelector((state) => state.count);
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    setValue(1);
+  }, [count]);
+
+  
+
   return (
-    <Provider store={store}>
-      <div>
-        <h1>I am Parent</h1>
-        <ChildA />
-        <ChildB />
-      </div>
-    </Provider>
+    <>
+      <h1>{count} parent</h1>
+      <ChildA />
+
+      <ChildB />
+    </>
   );
 }
 

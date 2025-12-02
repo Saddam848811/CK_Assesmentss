@@ -1,6 +1,12 @@
-import Reducer from "../component/Reducer";
 import { createStore } from "redux";
-import { incrementReducer } from "./Reducer";
+import { reducer } from "./Reducer";
 
-const store = createStore(incrementReducer);
-export default store;
+
+
+
+
+
+
+export const store = createStore(reducer);
+
+ 

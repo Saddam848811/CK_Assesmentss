@@ -3,13 +3,19 @@ import { IoPeople } from "react-icons/io5";
 import logo from "../../assets/logo/logo.svg";
 import { TbLogout } from "react-icons/tb";
 import { Outlet } from "react-router-dom";
+import { store } from "../../Redux/Store";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser, openSidebar } from "../../Redux/Actions";
 
 function NavBar() {
+  const dispatch = useDispatch();
+  // const state = useSelector(state=> state.openSidebar)
+  // console.log(state);
+
   return (
     <>
       <div className="h-[70px] md:h-[75px] w-full">
         <div className="w-full h-full flex items-center justify-between shadow-md shadow-gray-300 px-4">
-
           <div className="flex items-center gap-3 md:w-[20%]">
             <img className="h-8 md:h-10" src={logo} alt="" />
             <button className="flex flex-col gap-1.5 p-2 hover:bg-[#eaeeff] cursor-pointer md:hidden">
@@ -19,14 +25,17 @@ function NavBar() {
             </button>
           </div>
 
-          <div className="hidden md:flex md:w-[50%] items-center gap-5">
+          <div
+            onClick={() => dispatch(openSidebar())}
+            className="hidden md:flex md:w-[50%] items-center gap-5"
+          >
             <button className="flex flex-col gap-1.5 p-2 hover:bg-[#eaeeff] cursor-pointer">
               <span className="block w-6 h-0.5 bg-[#4398d7]"></span>
               <span className="block w-6 h-0.5 bg-[#4398d7]"></span>
               <span className="block w-6 h-0.5 bg-[#4398d7]"></span>
             </button>
 
-            <div className="flex flex-col justify-center">
+            {/* <div className="flex flex-col justify-center">
               <div className="font-bold">Module</div>
 
               <div className="relative inline-block group">
@@ -47,7 +56,7 @@ function NavBar() {
                   <li className="px-3 py-2 hover:bg-gray-100 cursor-pointer">Auto</li>
                 </ul>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="flex items-center gap-4 md:w-[30%]">
@@ -63,10 +72,19 @@ function NavBar() {
 
             <div className="flex justify-center items-center hover:bg-[#eaeeff] cursor-pointer border-2 border-[#4398d7] h-10 px-3 rounded">
               <TbLogout size={24} color="#007ddd" />
-              <button className="text-[#4398d7] font-bold ml-1">Log Out</button>
+              <button
+                onClick={()=>{
+                  console.log("logout dispatch from navbar");
+                  
+                  dispatch(logoutUser())
+                  // navigate('/user-login')
+                }}
+                className="text-[#4398d7] font-bold ml-1"
+              >
+                Log Out
+              </button>
             </div>
           </div>
-
         </div>
       </div>
     </>
