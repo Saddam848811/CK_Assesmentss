@@ -5,8 +5,6 @@ import { Navigate, Outlet } from "react-router-dom";
 function Authorize() {
     
   const isLoggedin = useSelector((state) => state.login.isLoggedin);
-  console.log(isLoggedin);
-  console.log(isLoggedin," from autthrize");
   
 
   if(isLoggedin == null){

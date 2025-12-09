@@ -1,9 +1,15 @@
 package com.CloudBalance.Service;
 
+import com.CloudBalance.DTO.UserDto;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 public interface UserService {
 
 
-    public void getAllUsers();
+    public List<UserDto> getAllUsers();
+    public UserDto addUser(UserDto userDto);
+    public UserDto getUserById(Long id);
+    public UserDto editUserById(UserDto userDto);
 }

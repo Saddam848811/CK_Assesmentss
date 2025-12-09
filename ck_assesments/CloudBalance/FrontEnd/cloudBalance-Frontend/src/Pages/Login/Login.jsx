@@ -2,7 +2,8 @@ import React from "react";
 import logo from "../../assets/logo/logo.svg";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../../Redux/Actions";
+import  {loginUser}  from "../../Redux/Actions";
+import loginUserapi from "../../Axios/Login/LoginUserapi";
 
 function Login() {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ function Login() {
 
   const handleSubmit = (e) => {1
     e.preventDefault();
+    loginUserapi();
     dispatch(loginUser());
     navigate("/user-table");
   };

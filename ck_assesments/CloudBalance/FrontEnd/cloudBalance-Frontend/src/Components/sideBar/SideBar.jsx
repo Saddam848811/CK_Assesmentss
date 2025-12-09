@@ -14,7 +14,7 @@ function SideBar() {
 
   return (
     <div
-      className={`h-screen p-2 shadow-md bg-white  top-0 left-0 transition-all duration-300 ${isOpen ? "w-64" : "w-16"}`}
+      className={`h-screen p-2 shadow-md bg-white  top-0 left-0 transition-all duration-300 ${isOpen ? "w-64" : "w-18.5"}`}
     >
    
 
@@ -26,18 +26,19 @@ function SideBar() {
             <li className="hover:text-[#424040] cursor-pointer">
               Users Management
             </li>
+            
           )}
         </div>
 
-        {/* Account Management */}
-        {/* <div className="flex items-center bg-blue-50 m-1 gap-3 rounded h-10 hover:bg-[#eaeeff] cursor-pointer">
+        {/* Account Management */} 
+        <div onClick={()=>navigate('/accounts-table')} className="flex items-center bg-blue-50 m-1 gap-3 rounded h-10 hover:bg-[#eaeeff] cursor-pointer">
           <MdOutlineLaptopChromebook className="ml-3" size={25} color="#4398d7" />
           {isOpen && (
             <li className="hover:text-[#424040] cursor-pointer">
-              Account Management
+              Accounts
             </li>
-          )} */}
-        {/* </div> */}
+          )}
+         </div>
 
         {/* Module Grid */}
         {/* <div className="flex items-center bg-blue-50 m-1 gap-3 rounded h-10 hover:bg-[#eaeeff] cursor-pointer">

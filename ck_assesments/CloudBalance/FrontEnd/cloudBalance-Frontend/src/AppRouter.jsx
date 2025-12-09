@@ -8,6 +8,10 @@ import AddUser from "./Pages/Dashboards/UserDashboard/AddUser";
 import { store } from "./Redux/Store.js";
 import { Provider } from "react-redux";
 import Authorize from "./Authorization/Authorize.jsx";
+import Accounts from "./Pages/Dashboards/AccountsDashboard/Accounts.jsx";
+import AccountsIAMRole from "./Pages/Dashboards/AccountsDashboard/AccountsIAMRole.jsx";
+import AccountsCustomerManagedPolicies from "./Pages/Dashboards/AccountsDashboard/AccountsCustomerManagedPolicies.jsx";
+import AccountsCreateCostAndUsageReport from "./Pages/Dashboards/AccountsDashboard/AccountsCreateCostAndUsageReport.jsx";
 
 function AppRouter() {
   useEffect(() => {
@@ -39,6 +43,11 @@ function AppRouter() {
                 <Route path="/user-table" element={<UserTable />} />
                 <Route path="/add-user" element={<AddUser />} />
                 <Route path="/edit-user" element={<AddUser />} />
+                <Route path="/accounts-table" element={<Accounts />} />
+                <Route path="/accounts-iam-role" element={<AccountsIAMRole />} />
+                <Route path="/accounts-customer-managed-policies" element={<AccountsCustomerManagedPolicies />} />
+                <Route path="/accounts-create-cost-usage-report" element={<AccountsCreateCostAndUsageReport />} />
+
               </Route>
             </Route>
 
