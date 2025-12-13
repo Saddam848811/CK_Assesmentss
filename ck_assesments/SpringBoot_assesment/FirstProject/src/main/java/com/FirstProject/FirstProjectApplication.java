@@ -17,18 +17,18 @@ public class FirstProjectApplication {
 
 	public static void main(String[] args) {
 
-//        SpringApplication.run(FirstProjectApplication.class, args);
-        ApplicationContext context = SpringApplication.run(FirstProjectApplication.class, args);
-
-
-                String[] beanNames = context.getBeanDefinitionNames();
-        for(String name : beanNames) {
-            System.out.println(name);
-        }
-
-        FrontController fc = context.getBean(FrontController.class); // <-- ye sahi hai
-//        System.out.println(fc.Start());
-        fc.Start();
+        SpringApplication.run(FirstProjectApplication.class, args);
+//        ApplicationContext context = SpringApplication.run(FirstProjectApplication.class, args);
+//
+//
+//                String[] beanNames = context.getBeanDefinitionNames();
+//        for(String name : beanNames) {
+//            System.out.println(name);
+//        }
+//
+//        FrontController fc = context.getBean(FrontController.class); // <-- ye sahi hai
+////        System.out.println(fc.Start());
+//        fc.Start();
 
     }
 

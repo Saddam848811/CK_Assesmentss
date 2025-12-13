@@ -1,17 +1,15 @@
 package com.FirstProject.Repository;
 
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import com.FirstProject.Entity.User;
+
+import java.util.Optional;
 
 @Repository
-public class UserRepository {
+public interface UserRepository extends JpaRepository<User, Long> {
 
-
-
-
-        public void Save(){
-
-            System.out.println("user saved in repo");
-        }
+    Optional<User> findByUserName(String userName);
 
 
 }
