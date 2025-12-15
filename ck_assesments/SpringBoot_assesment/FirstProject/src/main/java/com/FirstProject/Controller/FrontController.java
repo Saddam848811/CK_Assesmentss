@@ -51,18 +51,31 @@ public class FrontController {
         System.out.println(user + "front controller");
 
 
+        String token = null;
+
 //        Authentication authentication = authenticationManager.authenticate(
 //                new UsernamePasswordAuthenticationToken(
 //                        user.getUserName(),
 //                        user.getPassword()
 //                )
 //        );
+
+        Authentication authtoken   = new UsernamePasswordAuthenticationToken(user.getUserName(),user.getPassword());
+
+        Authentication authentication = authenticationManager.authenticate(authtoken);
+
+        System.out.println(authtoken+"from /users");
+        System.out.println(authentication+"from /users");
+
+        if (authentication.isAuthenticated()){
+             token = jwtUtil.generateToken(user.getUserName());
+
+        }
 //
 //        SecurityContextHolder.getContext().setAuthentication(authentication);
 
 
 
-        String token = jwtUtil.generateToken(user.getUserName());
 //        Cookie cookie = new Cookie("jwt", token);
 //        cookie.setHttpOnly(true);
 //        cookie.setSecure(false);   // change to true in production (HTTPS)

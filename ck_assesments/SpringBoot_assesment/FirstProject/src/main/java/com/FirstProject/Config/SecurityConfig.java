@@ -31,6 +31,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity){
 
+        System.out.println("inside security fiter chain");
+
         httpSecurity.formLogin(form-> form.disable())
 //                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .csrf(csrf -> csrf.disable())
