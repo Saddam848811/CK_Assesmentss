@@ -27,39 +27,39 @@ function UserDashboard(prop) {
             className="grid grid-cols-2 grid-rows-3 gap-4 w-full"
           >
             <div>
-              <label className="font-bold">First Name</label>
+              <label className="font-bold">UserName</label>
               <input
                 onChange={(e) =>
                   setUser({
                     ...user,
-                    firstName: e.target.value,
+                    username: e.target.value,
                   })
                 }
                 type="text"
                 className="border px-3 py-2 w-full rounded border-[#c5c2c2]"
-                placeholder={editUser?.firstName || "First Name"}
+                placeholder={editUser?.username || "UserName"}
                 required
               />
             </div>
 
             <div>
-              <label className="font-bold">Last Name</label>
+              <label className="font-bold">Password</label>
               <input
                 onChange={(e) =>
                   setUser({
                     ...user,
-                    lastName: e.target.value,
+                    password: e.target.value,
                   })
                 }
                 type="text"
                 className="border px-3 py-2 w-full rounded border-[#c5c2c2]"
-                placeholder={editUser?.lastName || "Last Name"}
+                placeholder={editUser?.password || "Password"}
                 required
               />
             </div>
 
             <div>
-              <label className="font-bold">Email Id</label>
+              <label className="font-bold">Email</label>
               <input
                 onChange={(e) =>
                   setUser({
@@ -87,9 +87,9 @@ function UserDashboard(prop) {
                 required
               >
                 <option value="">Select Roles</option>
-                <option value="Admin">Admin</option>
-                <option value="Read Ony">Read Only</option>
-                <option value="User">User</option>
+                <option value="ADMIN">Admin</option>
+                <option value="READONLY">Read Only</option>
+                <option value="CUSTOMER">Customer</option>
               </select>
             </div>
 

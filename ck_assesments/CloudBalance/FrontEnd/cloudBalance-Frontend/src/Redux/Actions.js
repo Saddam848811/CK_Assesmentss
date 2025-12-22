@@ -15,3 +15,10 @@ export const logoutUser =()=>{
     type: "logoutUser"
   }
 }
+
+export const setUserRole =(role)=>{
+  return {
+    type: "setRole",
+    payload:role
+  }
+}

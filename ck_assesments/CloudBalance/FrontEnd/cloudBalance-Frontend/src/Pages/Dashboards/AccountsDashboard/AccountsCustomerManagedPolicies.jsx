@@ -9,12 +9,44 @@ function AccountsCustomerManagedPolicies() {
     const navigate = useNavigate();
   return (
      <div className="h-[100vh]  bg-[#f6f2f2] flex flex-col">
-      <div className="bg-amber-50 w-[100%] p-6 fixed top-18 left-18  z-50">
-        <h1 className="text-sm">
-          A. Create an IAM Role  >> &nbsp; B. Add Customer Managed Policies >>&nbsp;
-          C. Create S3 Bucket >>&nbsp; D. Setup CUR Replication >>&nbsp; E. Create
-          CUR
-        </h1>
+       <div className="fixed top-18 left-64 w-full bg-amber-50 z-50 border-b">
+        <div className="flex items-center gap-4 px-6 py-4 text-sm text-gray-600">
+          {/* Step A - Completed */}
+          <div className="flex items-center gap-2">
+            <span className="w-4 h-4 rounded-full border border-gray-400" />
+            <span>A. Create an IAM Role</span>
+          </div>
+
+          <span className="text-gray-400">{">"}</span>
+
+          {/* Step B */}
+           <div className="flex items-center gap-2 font-medium text-gray-800">
+            <span className="flex items-center justify-center w-5 h-5 rounded-full border border-green-500 bg-green-50">
+              <svg
+                className="w-3 h-3 text-green-600"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M5 13l4 4L19 7"
+                />
+              </svg>
+            </span>
+            <span>B. Add Customer Managed Policies</span>
+          </div>
+
+          <span className="text-gray-400">{">"}</span>
+
+          {/* Step E */}
+          <div className="flex items-center gap-2">
+            <span className="w-4 h-4 rounded-full border border-gray-400" />
+            <span>C. Create CUR</span>
+          </div>
+        </div>
       </div>
 
       <div className="mt-15 flex-1 overflow-y-auto">

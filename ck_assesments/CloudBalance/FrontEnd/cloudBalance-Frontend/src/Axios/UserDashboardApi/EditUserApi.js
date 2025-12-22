@@ -5,12 +5,14 @@ const editUserapi=async(user)=>{
     const response = await axios.post("http://localhost:8080/user/editUserById",
         {
     "id": `${user.id}`,
-    "firstName": `${user.firstName}`,
-    "lastName": `${user.lastName}`,
+    "username": `${user.username}`,
+    "password": `${user.password}`,
     "email": `${user.email}`,
     "role": `${user.role}`,
-    "lastLogin": `${user.lastLogin}`,
     "active": `${user.active}`
+},
+{
+    withCredentials:true
 } )
 
 

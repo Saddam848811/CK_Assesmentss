@@ -1,28 +1,90 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../../assets/logo/logo.svg";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import  {loginUser}  from "../../Redux/Actions";
+import  {loginUser, setUserRole}  from "../../Redux/Actions";
 import loginUserapi from "../../Axios/Login/LoginUserapi";
+import { authCheck } from "../../Axios/Auth/AuthCheck";
 
 function Login() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+    const [status, setStatus] = useState(null);
+      const dispatch = useDispatch();
 
-  const state = useSelector((state) => state.login.isLoggedin);
-  console.log(state, "from login oage");
+      const[role, setRole] = useState();
 
-  if (state !== null) {
-   return <Navigate to={"/user-table"} />;
-  }
+  
+  // const dispatch = useDispatch();
+
+  // const state = useSelector((state) => state.login.isLoggedin);
+  // console.log(state, "from login oage");
+
+  const [loginData, setLoginData] = useState({});
+
+  console.log(loginData,"login data from login");
+  
+
+  useEffect(() => {
+    const authenticationCheck = async () => {
+      try {
+        const authCheckres = await authCheck();
+        console.log(authCheckres, "authcheck from authorization comp");
+        setStatus(authCheckres.status);
+        setRole(authCheckres.data.authorities[0].authority)
+        // dispatch(setUserRole(authCheckres.data.authorities[0].authority))
+      } catch (error) {
+        console.log(error, "auth failed");
+        setStatus(401);
+      }
+    };
+
+    authenticationCheck();
+  }, [status]);
+
+  // const userRole = useSelector(state => state.role?.userRole ?? null);
+  //   console.log(userRole,"user roles from login comp");
+    
+
+
+
+  // if (status === 200 ) {
+  //   return <Navigate to="/cost-explorer-dashboard" />;
+  // }
+    
  
 
-  const handleSubmit = (e) => {1
+  const handleSubmit = (e) => {
     e.preventDefault();
-    loginUserapi();
-    dispatch(loginUser());
-    navigate("/user-table");
+    const loginuser=async()=>{
+
+      const status =await  loginUserapi(loginData);
+      console.log(status,"status from logiuserapi");
+      setStatus(status)
+      // status == 200? navigate("/user-table"):alert("login failed")
+    }
+    loginuser();
+   
+    // dispatch(loginUser());
+    // navigate("/user-table");
   };
+
+
+  if (status === null) {
+    return <div>Loading...</div>;
+  }
+
+  if (status === 200 && role === "ROLE_ADMIN" ) {
+    return <Navigate to="/user-table" />;
+  }
+
+  if (status === 200 && role === "ROLE_CUSTOMER" ) {
+    return <Navigate to="/cost-explorer-dashboard" />;
+  }
+  if (status === 200 && role === "ROLE_READONLY" ) {
+    return <Navigate to="/user-table" />;
+  }
+
+
 
   return (
     <>
@@ -44,6 +106,7 @@ function Login() {
               </div>
               <div className="h-[60%] flex justify-end">
                 <input
+                  onChange={(e)=>setLoginData({...loginData,email:e.target.value})}
                   className="ml-2 border-1 border-[#7b7d86] rounded h-[100%] w-[100%] pl-4"
                   type="email"
                   placeholder="   Enter Email"
@@ -60,6 +123,7 @@ function Login() {
               </div>
               <div className="h-[60%] flex justify-end">
                 <input
+                  onChange={(e)=>setLoginData({...loginData,password:e.target.value})}
                   className="ml-2 border-1 border-[#7b7d86] rounded h-[100%] w-[100%] pl-4"
                   type="password"
                   placeholder="   Enter Password"

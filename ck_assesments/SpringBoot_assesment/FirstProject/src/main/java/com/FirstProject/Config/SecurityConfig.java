@@ -33,12 +33,13 @@ public class SecurityConfig {
 
         System.out.println("inside security fiter chain");
 
-        httpSecurity.formLogin(form-> form.disable())
+        httpSecurity
 //                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                    .csrf(csrf -> csrf.disable())
-                    .authorizeHttpRequests(auth-> auth.requestMatchers("/test/users").permitAll().anyRequest().authenticated())
-                .addFilterBefore(jwtAuthenticationFilter,
-                        org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
+//                    .csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests(auth-> auth.requestMatchers("/test/users").permitAll().anyRequest().authenticated())
+                .authorizeHttpRequests(auth-> auth.requestMatchers("/test/users").authenticated());
+//                .addFilterBefore(jwtAuthenticationFilter,
+//                        org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
 
 

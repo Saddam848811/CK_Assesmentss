@@ -4,6 +4,10 @@ import NavBar from "./Components/NavBar/NavBar";
 import SideBar from "./Components/sideBar/SideBar";
 
 function Layout() {
+
+  console.log("passing from layout");
+ 
+  
   return (
     <div className="h-screen flex flex-col">
       <NavBar />

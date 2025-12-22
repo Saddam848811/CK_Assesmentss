@@ -12,6 +12,8 @@ import Accounts from "./Pages/Dashboards/AccountsDashboard/Accounts.jsx";
 import AccountsIAMRole from "./Pages/Dashboards/AccountsDashboard/AccountsIAMRole.jsx";
 import AccountsCustomerManagedPolicies from "./Pages/Dashboards/AccountsDashboard/AccountsCustomerManagedPolicies.jsx";
 import AccountsCreateCostAndUsageReport from "./Pages/Dashboards/AccountsDashboard/AccountsCreateCostAndUsageReport.jsx";
+import CostExplorerDashboard from "./Pages/Dashboards/CostExplorerDashboard/CostExplorerDashboard.jsx";
+import AWSServicesDashboard from "./Pages/Dashboards/AWSServicesDashboard/AWSServicesDashboard.jsx";
 
 function AppRouter() {
   useEffect(() => {
@@ -41,12 +43,14 @@ function AppRouter() {
             <Route element={<Authorize />}>
               <Route element={<Layout />}>
                 <Route path="/user-table" element={<UserTable />} />
-                <Route path="/add-user" element={<AddUser />} />
-                <Route path="/edit-user" element={<AddUser />} />
+                {/* <Route path="/add-user" element={<AddUser />} />
+                <Route path="/edit-user" element={<AddUser />} /> */}
                 <Route path="/accounts-table" element={<Accounts />} />
                 <Route path="/accounts-iam-role" element={<AccountsIAMRole />} />
                 <Route path="/accounts-customer-managed-policies" element={<AccountsCustomerManagedPolicies />} />
                 <Route path="/accounts-create-cost-usage-report" element={<AccountsCreateCostAndUsageReport />} />
+                <Route path="/cost-explorer-dashboard" element={<CostExplorerDashboard />} />
+                <Route path="/aws-services-dashboard" element={<AWSServicesDashboard />} />
 
               </Route>
             </Route>

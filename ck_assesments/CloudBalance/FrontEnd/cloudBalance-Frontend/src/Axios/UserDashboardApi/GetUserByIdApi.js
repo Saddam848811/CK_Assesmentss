@@ -1,16 +1,14 @@
 import axios from "axios";
 
-const getUserByIdApi=async(user)=>{
+const getUserByIdApi = async (user) => {
+  const response = await axios.post(
+    `http://localhost:8080/user/getUserById?id=${user.id}`,{},
+    {
+      withCredentials: true,
+    }
+  );
 
-    const response = await axios.post(`http://localhost:8080/user/getUserById?id=${user.id}`)
-
-
-
-    return response.data;
-    
-
-    
-
-}
+  return response.data;
+};
 
 export default getUserByIdApi;
