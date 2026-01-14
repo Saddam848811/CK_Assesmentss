@@ -14,4 +14,5 @@ public interface UserService {
     public UserDto getUserById(Long id);
     public UserDto editUserById(UserDto userDto);
     public UserDto getUserByEmail(String email);
+    public UserDto setActive(Long id);
 }

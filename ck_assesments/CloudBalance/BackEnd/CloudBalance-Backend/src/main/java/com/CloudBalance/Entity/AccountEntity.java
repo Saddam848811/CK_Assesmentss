@@ -1,16 +1,19 @@
 package com.CloudBalance.Entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
+import jakarta.validation.constraints.NotBlank;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "accounts")
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 @DynamicUpdate
 public class AccountEntity {
 
@@ -24,5 +27,24 @@ public class AccountEntity {
     private String serviceType;
     private String platform;
     private String instanceType;
+
+    @Override
+    public String toString() {
+        return "AccountEntity{" +
+                "id=" + id +
+                ", accountName='" + accountName + '\'' +
+                ", accountId='" + accountId + '\'' +
+                ", resourceName='" + resourceName + '\'' +
+                ", serviceType='" + serviceType + '\'' +
+                ", platform='" + platform + '\'' +
+                ", instanceType='" + instanceType + '\'' +
+                ", active=" + active +
+                '}';
+    }
+
     private boolean active;
+
+    @ManyToMany(mappedBy = "accounts")
+    private Set<UserEntity> users;
+
 }
