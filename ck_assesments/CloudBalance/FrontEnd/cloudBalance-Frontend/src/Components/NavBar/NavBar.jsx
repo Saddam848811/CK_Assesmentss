@@ -2,38 +2,39 @@ import React, { useEffect, useState } from "react";
 import { IoPeople } from "react-icons/io5";
 import logo from "../../assets/logo/logo.svg";
 import { TbLogout } from "react-icons/tb";
-import { Outlet, useNavigate } from "react-router-dom";
-import { store } from "../../Redux/Store";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser, openSidebar } from "../../Redux/Actions";
-import axios from 'axios'
-import getUserByEmail from "../../Axios/UserDashboardApi/getUserByEmail";
+import getUsernameByEmail from "../../Axios/UserDashboardApi/getUsernameByEmail";
 
 function NavBar() {
   const dispatch = useDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [name,setName] = useState(null);
+  const [name, setName] = useState(null);
 
-  useEffect(()=>{
+  const userEmail = useSelector((state) => state.email?.userEmail ?? null);
 
-    const getuserbyemailfun=async()=>{
-      
+  useEffect(() => {
+    if (!userEmail) return;
 
-      const response = await getUserByEmail();
-      console.log(response,"from navbar usedeffect");
-      setName(response.data.username)
-    }
-    
-    getuserbyemailfun();
-  },[])
-  
+    const fetchUsername = async () => {
+      try {
+        const response = await getUsernameByEmail(userEmail);
+        setName(response.data);
+      } catch (error) {
+        console.error("Failed to fetch username", error);
+      }
+    };
+
+    fetchUsername();
+  }, [userEmail]);
 
   return (
     <>
       <div className="h-[70px] md:h-[75px] w-full">
         <div className="w-full h-full flex items-center justify-between shadow-md shadow-gray-300 px-4">
-          <div className="flex items-center gap-3 md:w-[20%]  items-center justify-center">
+          <div className="flex  gap-3 md:w-[20%]  items-center justify-center">
             <img className="h-8 md:h-10 " src={logo} alt="" />
             <button className="flex flex-col gap-1.5 p-2 hover:bg-[#eaeeff] cursor-pointer md:hidden">
               <span className="block w-6 h-0.5 bg-[#4398d7]"></span>
@@ -51,29 +52,6 @@ function NavBar() {
               <span className="block w-6 h-0.5 bg-[#4398d7]"></span>
               <span className="block w-6 h-0.5 bg-[#4398d7]"></span>
             </button>
-
-            {/* <div className="flex flex-col justify-center">
-              <div className="font-bold">Module</div>
-
-              <div className="relative inline-block group">
-                <button className="flex items-center gap-1 text-gray-600 font-medium">
-                  Lens
-                  <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                    <path
-                      fillRule="evenodd"
-                      d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.29a.75.75 0 01.02-1.08z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </button>
-
-                <ul className="absolute left-0 mt-2 w-32 bg-white shadow rounded hidden group-hover:block">
-                  <li className="px-3 py-2 hover:bg-gray-100 cursor-pointer">Lens</li>
-                  <li className="px-3 py-2 hover:bg-gray-100 cursor-pointer">Tuner</li>
-                  <li className="px-3 py-2 hover:bg-gray-100 cursor-pointer">Auto</li>
-                </ul>
-              </div>
-            </div> */}
           </div>
 
           <div className=" flex items-center gap-4 md:w-[25%] justify-between">
@@ -91,23 +69,8 @@ function NavBar() {
               <TbLogout size={24} color="#007ddd" />
               <button
                 onClick={() => {
-
-                  // const logoutUserapi = async () => {
-                  //   const response = await axios.post(
-                  //     "http://localhost:8080/auth/login",
-                  //     {},
-                  //     {
-                  //       withCredentials: true,
-                  //     }
-                  //   );
-                  //   console.log(response.status, "response");
-
-                  //   return response.status;
-                  // };
-
-                  // logoutUserapi();
-
-                  navigate('/user-login')
+                  dispatch(logoutUser());
+                  navigate("/user-login");
                 }}
                 className="text-[#4398d7] font-bold ml-1 "
               >

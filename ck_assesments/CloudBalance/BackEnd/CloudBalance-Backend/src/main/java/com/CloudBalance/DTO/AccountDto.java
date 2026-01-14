@@ -18,6 +18,6 @@ public class AccountDto {
     private String serviceType;
     private String platform;
     private String instanceType;
-    private boolean active;
+    private Boolean active;
 
 }

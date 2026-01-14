@@ -17,6 +17,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -33,16 +34,22 @@ public class FrontController {
 
     @Autowired
     JwtUtil jwtUtil;
+    @Autowired
+    UserRepository userRepository;
 
 
 
-    @GetMapping("/hello")
-    public String hello(HttpServletRequest request){
-
-
-
-        return "hello u are authenticated";
+    @Transactional
+    @PostMapping("/hello")
+    public String hello(@RequestBody User user) {
+       User user1 =  userRepository.save(user);
+        System.out.println(user1.getId());
+        user1.setUserName("saddam");
+        int x = 10/0;
+        userRepository.save(user1);
+        return "hello you are authenticated";
     }
+
 
 
 

@@ -24,10 +24,17 @@ public class UserEntity {
 
     @Column(nullable = false, unique = true)
     private  String email;
-
     private  String password;
     private  String role;
     private boolean active;
+
+    @ManyToMany(cascade = {CascadeType.ALL})
+    @JoinTable(
+            name = "user_accounts",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "account_id")
+    )
+    private Set<AccountEntity> accounts = new HashSet<>();
 
     @Override
     public String toString() {
@@ -41,13 +48,18 @@ public class UserEntity {
                 '}';
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_accounts",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "account_id")
-    )
-    private Set<AccountEntity> accounts = new HashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserEntity)) return false;
+        UserEntity that = (UserEntity) o;
+        return id != null && id.equals(that.id);
+    }
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 
 
 

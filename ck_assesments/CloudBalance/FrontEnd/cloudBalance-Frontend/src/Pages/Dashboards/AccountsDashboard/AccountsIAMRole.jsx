@@ -10,9 +10,8 @@ function AccountsIAMRole() {
 
   return (
     <div className="min-h-screen  bg-[#f6f2f2] flex flex-col">
-      <div className="fixed top-18 left-64 w-full bg-amber-50 z-50 border-b">
+      <div className="fixed top-18 left-64 w-full bg-blue-50  z-50 border-b">
         <div className="flex items-center gap-4 px-6 py-4 text-sm text-gray-600">
-          {/* Step A - Completed */}
           <div className="flex items-center gap-2 font-medium text-gray-800">
             <span className="flex items-center justify-center w-5 h-5 rounded-full border border-green-500 bg-green-50">
               <svg
@@ -34,7 +33,6 @@ function AccountsIAMRole() {
 
           <span className="text-gray-400">{">"}</span>
 
-          {/* Step B */}
           <div className="flex items-center gap-2">
             <span className="w-4 h-4 rounded-full border border-gray-400" />
             <span>B. Add Customer Managed Policies</span>
@@ -42,7 +40,6 @@ function AccountsIAMRole() {
 
           <span className="text-gray-400">{">"}</span>
 
-          {/* Step E */}
           <div className="flex items-center gap-2">
             <span className="w-4 h-4 rounded-full border border-gray-400" />
             <span>E. Create CUR</span>

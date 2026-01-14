@@ -1,8 +1,6 @@
 import axios from "axios";
 
 const loginUserapi = async (loginData) => {
-
-  
   const response = await axios.post("http://localhost:8080/auth/login", {
     email: loginData.email,
     password: loginData.password,
@@ -10,7 +8,11 @@ const loginUserapi = async (loginData) => {
   {
     withCredentials:true
   });
-  console.log(response.status, "response");
+
+  // const response = await api.post("/auth/login", {
+  //   email: loginData.email,
+  //   password: loginData.password,
+  // });
 
   return response.status;
 };

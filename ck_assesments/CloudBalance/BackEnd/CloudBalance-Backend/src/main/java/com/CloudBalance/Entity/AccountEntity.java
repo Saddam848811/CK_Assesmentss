@@ -3,9 +3,6 @@ package com.CloudBalance.Entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.DynamicUpdate;
-import jakarta.validation.constraints.NotBlank;
-
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -27,6 +24,10 @@ public class AccountEntity {
     private String serviceType;
     private String platform;
     private String instanceType;
+    private Boolean active;
+
+    @ManyToMany(mappedBy = "accounts" ,fetch = FetchType.EAGER)
+    private Set<UserEntity> users;
 
     @Override
     public String toString() {
@@ -41,10 +42,16 @@ public class AccountEntity {
                 ", active=" + active +
                 '}';
     }
-
-    private boolean active;
-
-    @ManyToMany(mappedBy = "accounts")
-    private Set<UserEntity> users;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AccountEntity)) return false;
+        AccountEntity that = (AccountEntity) o;
+        return id != null && id.equals(that.id);
+    }
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 
 }

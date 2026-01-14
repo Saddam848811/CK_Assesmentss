@@ -19,45 +19,40 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
 
-    @Autowired
-    JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
+    private final CustomUserDetailsService customUserDetailsService;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
-    @Autowired
-    CustomUserDetailsService customUserDetailsService;
-
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    public SecurityConfig(JwtAuthenticationFilter jwtAuthenticationFilter,
+                          CustomUserDetailsService customUserDetailsService,
+                          PasswordEncoder passwordEncoder,
+                          JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint) {
+        this.jwtAuthenticationFilter = jwtAuthenticationFilter;
+        this.customUserDetailsService = customUserDetailsService;
+        this.passwordEncoder = passwordEncoder;
+        this.jwtAuthenticationEntryPoint = jwtAuthenticationEntryPoint;
+    }
 
 
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity httpSecurity){
+    public SecurityFilterChain filterChain(HttpSecurity httpSecurity) {
 
         System.out.println("inside security fiter chain");
-
-        httpSecurity.formLogin(form-> form.disable())
+        httpSecurity.formLogin(form -> form.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth-> auth
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                )
+                .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/user/**").authenticated()
                         .requestMatchers("/account/**").authenticated()
                         .requestMatchers("/user_account/**").authenticated()
+                        .requestMatchers("/costExplorer/**").authenticated()
                         .requestMatchers("/auth/**").permitAll())
-                .addFilterBefore(jwtAuthenticationFilter , UsernamePasswordAuthenticationFilter.class);
-
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
-    }
-
-    @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider(customUserDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder);
-        return authProvider;
-    }
-
-
-    @Bean
-    public AuthenticationManager authenticationManager() {
-        return authentication -> authenticationProvider().authenticate(authentication);
     }
 }

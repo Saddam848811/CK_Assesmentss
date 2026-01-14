@@ -10,6 +10,9 @@ const loginInitialState = {
 const getUserRole = {
   userRole: null,
 };
+const getUserEmail = {
+  userEmail: null,
+};
 
 export const sideBarReducer = (state = sidebarInitialState, action) => {
   switch (action.type) {
@@ -32,7 +35,7 @@ export const loginReducer = (state = loginInitialState, action) => {
 
     case "logoutUser":
       localStorage.removeItem("isLoggedin");
-      return { ...state, isLoggedin: null };
+      return { ...state, isLoggedin: false };
     default:
       return state;
   }
@@ -41,8 +44,17 @@ export const loginReducer = (state = loginInitialState, action) => {
 export const userRole = (state = getUserRole, action) => {
   switch (action.type) {
     case "setRole": {
-      
-      return {...state,userRole:action.payload};
+      return { ...state, userRole: action.payload };
+    }
+    default:
+      return state;
+  }
+};
+
+export const userEmail = (state = getUserEmail, action) => {
+  switch (action.type) {
+    case "setEmail": {
+      return { ...state, userEmail: action.payload };
     }
     default:
       return state;
@@ -53,4 +65,5 @@ export const rootReducer = combineReducers({
   sidebar: sideBarReducer,
   login: loginReducer,
   role: userRole,
+  email: userEmail,
 });

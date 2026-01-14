@@ -18,12 +18,12 @@ public class UserMapper {
         entity.setEmail(dto.getEmail());
         entity.setPassword(dto.getPassword());
         entity.setRole(dto.getRole());
-        entity.setActive(dto.isActive());
+        entity.setActive(dto.getActive());
+
 
         return entity;
     }
 
-    // Entity → DTO
     public UserDto entityToDto(UserEntity entity) {
         if (entity == null) {
             return null;

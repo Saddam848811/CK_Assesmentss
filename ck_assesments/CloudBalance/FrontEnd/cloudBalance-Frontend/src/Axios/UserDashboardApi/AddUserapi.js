@@ -1,25 +1,38 @@
 import axios from "axios";
 
 const addUserapi = async (user) => {
-
-  console.log(user,"user from add user api");
-  
-
-  const response = await axios.post("http://localhost:8080/user/addUser", {
+  const payload = {
     username: user.username,
     password: user.password,
     email: user.email,
     role: user.role,
-    active:"false"
-  },
-{
-  withCredentials:true
-});
+    active: false,
+    accountList:
+      user.accountList?.map((account) => ({
+        id: account.id,
+        accountId: account.accountId,
+        accountName: account.accountName,
+        resourceName: account.resourceName,
+        serviceType: account.serviceType,
+        platform: account.platform,
+        instanceType: account.instanceType,
+        active: account.active,
+      })) || [],
+  };
 
-  console.log(response);
+  try {
+    const response = await axios.post(
+      "http://localhost:8080/user/addUser",
+      payload,
+      { withCredentials: true }
+    );
 
-  return response;
-  
+    // console.log(response);
+    return response.status;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
 };
 
 export default addUserapi;

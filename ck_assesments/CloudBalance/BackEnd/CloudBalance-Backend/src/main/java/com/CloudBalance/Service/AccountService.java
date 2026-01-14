@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface AccountService {
 
-    public  List<AccountDto>  getAccounts();
-    public void setActive(Long id);
-
+    List<AccountDto>  getAccounts();
+    void setActive(Long id);
+    List<String> getAccountIdByEmail(String email);
 }

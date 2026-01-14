@@ -13,13 +13,10 @@ function EC2Table() {
       <table className="table-auto w-full border-collapse border border-gray-300">
         <thead className="bg-blue-100">
           <tr>
-            {/* <th className="px-4 py-2">Account ID</th> */}
             <th className="px-4 py-2">Resource ID</th>
             <th className="px-4 py-2">Resource Name</th>
             <th className="px-4 py-2">Region</th>
             <th className="px-4 py-2">Status</th>
-            {/* <th className="px-4 py-2">Potential Saving</th> */}
-            {/* <th className="px-4 py-2">Enable Scheduler</th> */}
           </tr>
         </thead>
 
@@ -29,9 +26,6 @@ function EC2Table() {
               key={item.resourceId}
               className="bg-gray-50 border-gray-200 border hover:bg-blue-50 transition"
             >
-              {/* <td className="px-4 py-2 text-center text-gray-700 text-sm">
-                {item.accountId}
-              </td> */}
               <td className="px-4 py-2 text-center text-gray-700 text-sm">
                 {item.resourceId}
               </td>
@@ -52,17 +46,6 @@ function EC2Table() {
                   {item.status}
                 </span>
               </td>
-              {/* <td className="px-4 py-2 text-center text-gray-700 text-sm">
-                {item.potentialSaving}
-              </td> */}
-              {/* <td className="px-4 py-2 text-center text-gray-700 text-sm">
-                <input
-                  type="checkbox"
-                  checked={item.schedulerEnabled === "Yes"}
-                  readOnly
-                  className="w-5 h-5 accent-blue-500"
-                />
-              </td> */}
             </tr>
           ))}
         </tbody>

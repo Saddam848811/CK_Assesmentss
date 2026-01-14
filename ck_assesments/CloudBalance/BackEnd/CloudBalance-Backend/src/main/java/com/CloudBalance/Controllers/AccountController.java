@@ -23,9 +23,11 @@ import java.util.List;
 @Validated
 public class AccountController {
 
-    @Autowired
-    AccountService accountService;
+    private final AccountService accountService;
 
+    public AccountController(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     @PreAuthorize("hasAnyRole('ADMIN','READONLY')")
     @GetMapping("/getAccounts")
@@ -37,7 +39,7 @@ public class AccountController {
 
        for(AccountDto accountDto : list)
         {
-            if (accountDto.isActive() == true){
+            if (accountDto.getActive() == true){
                activeAccountList.add(accountDto);
             }
         }
@@ -55,11 +57,14 @@ public class AccountController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/setActive")
     public void setActive(@RequestParam @Positive(message="id must be positive") @NotNull(message = "id must not be empty") Long id){
-
-        System.out.println(id+"hii from setActive");
-
         accountService.setActive(id);
+    }
 
+    @GetMapping("/getAccountIdByEmail")
+    public ResponseEntity<List<String>> getAccountIdByEmail(@RequestParam  String email){
 
+        List<String> list =  accountService.getAccountIdByEmail(email);
+
+        return new ResponseEntity<>(list,HttpStatus.OK);
     }
 }

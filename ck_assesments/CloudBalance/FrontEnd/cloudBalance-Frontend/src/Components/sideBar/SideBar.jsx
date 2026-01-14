@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaUserCog, FaMoneyCheckAlt, FaAws } from "react-icons/fa";
 import { MdOutlineLaptopChromebook } from "react-icons/md";
 import { useSelector } from "react-redux";
@@ -6,10 +6,12 @@ import { useNavigate } from "react-router-dom";
 
 function SideBar() {
   const userRole = useSelector(state => state.role?.userRole ?? null);
-  console.log(userRole,"user roles from sidebar comp");
   
   const isOpen = useSelector(state => state.sidebar.openSidebar);
+  
   const navigate = useNavigate();
+
+  const [activeIndex, setActiveIndex] = useState(null);
 
   const sidebarLinks = [
     { path: "/user-table", label: "User Management", icon: <FaUserCog size={24} color="#4398d7" />, roles: ["ROLE_ADMIN","ROLE_READONLY"] },
@@ -32,9 +34,11 @@ function SideBar() {
       }`}
     >
       <ul className="flex flex-col mt-4">
-        {sidebarLinks.map((link) =>
+        {sidebarLinks.map((link,index) =>
           link.roles.includes(userRole) ? (
-            <li key={link.path} onClick={() => navigate(link.path)} className={menuItem}>
+            <li key={link.path} onClick={() =>{ navigate(link.path) ;setActiveIndex(index)}} className={`${menuItem} ${
+                activeIndex === index ? "bg-blue-100" : "bg-blue-50 hover:bg-[#eaeeff]"
+              }`}>
               <span className={iconClass}>{link.icon}</span>
               <span className={`${textClass} ${isOpen ? "opacity-100 ml-3" : "opacity-0 w-0 overflow-hidden"}`}>
                 {link.label}

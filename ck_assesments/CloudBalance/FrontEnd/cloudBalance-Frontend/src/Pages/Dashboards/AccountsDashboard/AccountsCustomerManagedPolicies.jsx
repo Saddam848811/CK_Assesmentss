@@ -5,13 +5,11 @@ import OtherPermissionPolicies from "../../../assets/Accounts/OtherPermissionPol
 import { useNavigate } from "react-router-dom";
 
 function AccountsCustomerManagedPolicies() {
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   return (
-     <div className="h-[100vh]  bg-[#f6f2f2] flex flex-col">
-       <div className="fixed top-18 left-64 w-full bg-amber-50 z-50 border-b">
+    <div className="h-[100vh]  bg-[#f6f2f2] flex flex-col">
+      <div className="fixed top-18 left-64 w-full bg-blue-50 z-50 border-b">
         <div className="flex items-center gap-4 px-6 py-4 text-sm text-gray-600">
-          {/* Step A - Completed */}
           <div className="flex items-center gap-2">
             <span className="w-4 h-4 rounded-full border border-gray-400" />
             <span>A. Create an IAM Role</span>
@@ -19,8 +17,7 @@ function AccountsCustomerManagedPolicies() {
 
           <span className="text-gray-400">{">"}</span>
 
-          {/* Step B */}
-           <div className="flex items-center gap-2 font-medium text-gray-800">
+          <div className="flex items-center gap-2 font-medium text-gray-800">
             <span className="flex items-center justify-center w-5 h-5 rounded-full border border-green-500 bg-green-50">
               <svg
                 className="w-3 h-3 text-green-600"
@@ -41,7 +38,6 @@ function AccountsCustomerManagedPolicies() {
 
           <span className="text-gray-400">{">"}</span>
 
-          {/* Step E */}
           <div className="flex items-center gap-2">
             <span className="w-4 h-4 rounded-full border border-gray-400" />
             <span>C. Create CUR</span>
@@ -130,21 +126,21 @@ function AccountsCustomerManagedPolicies() {
           </button>
           <div className="w-[450px]  flex justify-between">
             <button
-            onClick={() => {
-              navigate("/accounts-customer-managed-policies");
-            }}
-            className="bg-blue-50 text-black px-4 py-2 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
-          >
-            Back - Create an IAM Role Bucket
-          </button>
-          <button
-            onClick={() => {
-              navigate("/accounts-create-cost-usage-report");
-            }}
-            className="bg-blue-50 text-black px-4 py-2 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
-          >
-            Next - Create CUR
-          </button>
+              onClick={() => {
+                navigate("/accounts-customer-managed-policies");
+              }}
+              className="bg-blue-50 text-black px-4 py-2 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
+            >
+              Back - Create an IAM Role Bucket
+            </button>
+            <button
+              onClick={() => {
+                navigate("/accounts-create-cost-usage-report");
+              }}
+              className="bg-blue-50 text-black px-4 py-2 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
+            >
+              Next - Create CUR
+            </button>
           </div>
         </div>
       </div>

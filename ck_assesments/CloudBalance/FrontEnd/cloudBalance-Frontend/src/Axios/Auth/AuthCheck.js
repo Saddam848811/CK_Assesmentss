@@ -1,10 +1,8 @@
-import axios from "axios";
-const authCheck = async () => {
-  const response = await axios.get("http://localhost:8080/auth/authCheck", {
-    withCredentials: true,
-  });
+import { api } from "../Interceptor/axios";
 
+const authCheck = async () => {
+  const response = await api.get("/auth/authCheck");
   return response;
 };
 
-export {authCheck};
+export { authCheck };

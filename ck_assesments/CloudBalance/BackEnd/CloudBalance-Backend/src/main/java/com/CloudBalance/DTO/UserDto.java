@@ -1,5 +1,6 @@
 package com.CloudBalance.DTO;
 
+import com.CloudBalance.Validation.ValueOfEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +12,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Positive;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -29,7 +32,9 @@ public class UserDto {
     @NotBlank(message = "password cannot be empty")
     private String password;
     @NotBlank(message = "role cannot be empty")
+    @ValueOfEnum(enumClass = Role.class, message = "Role must be one of ADMIN, READONLY, CUSTOMER")
     private  String role;
     @NotNull(message = "Active status must be provided")
-    private boolean active;
+    private Boolean active;
+    private List<AccountDto> accountList;
 }

@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./Pages/Login/Login";
 import UserTable from "./Pages/Dashboards/UserDashboard/UserTable.jsx";
-import NavBar from "./Components/NavBar/NavBar.jsx";
 import Layout from "./Layout.jsx";
 import AddUser from "./Pages/Dashboards/UserDashboard/AddUser";
 import { store } from "./Redux/Store.js";
@@ -14,6 +13,8 @@ import AccountsCustomerManagedPolicies from "./Pages/Dashboards/AccountsDashboar
 import AccountsCreateCostAndUsageReport from "./Pages/Dashboards/AccountsDashboard/AccountsCreateCostAndUsageReport.jsx";
 import CostExplorerDashboard from "./Pages/Dashboards/CostExplorerDashboard/CostExplorerDashboard.jsx";
 import AWSServicesDashboard from "./Pages/Dashboards/AWSServicesDashboard/AWSServicesDashboard.jsx";
+import AccountManagement from "./Pages/Dashboards/UserDashboard/UserAccountManagement/AccountManagement.jsx";
+import NotFound from "./Components/NotFound/NotFound.jsx";
 
 function AppRouter() {
   useEffect(() => {
@@ -37,27 +38,22 @@ function AppRouter() {
       <Provider store={store}>
         <Router>
           <Routes>
-
             <Route path="/user-login" element={<Login />} />
-
             <Route element={<Authorize />}>
               <Route element={<Layout />}>
                 <Route path="/user-table" element={<UserTable />} />
-                {/* <Route path="/add-user" element={<AddUser />} />
-                <Route path="/edit-user" element={<AddUser />} /> */}
+                <Route path="/user-account-management" element={<AccountManagement />} />
+                <Route path="/add-user" element={<AddUser />} />
                 <Route path="/accounts-table" element={<Accounts />} />
                 <Route path="/accounts-iam-role" element={<AccountsIAMRole />} />
                 <Route path="/accounts-customer-managed-policies" element={<AccountsCustomerManagedPolicies />} />
                 <Route path="/accounts-create-cost-usage-report" element={<AccountsCreateCostAndUsageReport />} />
                 <Route path="/cost-explorer-dashboard" element={<CostExplorerDashboard />} />
                 <Route path="/aws-services-dashboard" element={<AWSServicesDashboard />} />
-
               </Route>
             </Route>
-
-           
+            <Route path="*" element={<NotFound />} />
           </Routes>
-
         </Router>
       </Provider>
     </>

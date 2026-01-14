@@ -31,25 +31,20 @@ function AWSServicesDashboard() {
             >
               ASG
             </button>
-           
           </div>
-           <div className="w-60">
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                MAV
-              </label>
+          <div className="w-60">
+            <label className="block text-sm font-medium text-gray-700 mb-1">
+              MAV
+            </label>
 
-              <select
-                // value={selected}
-                // onChange={(e) => setSelected(e.target.value)}
-                className="w-full  px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-              >
-                <option value="1mg - (All) ">1mg - (All)</option>
-                <option value="1mg - 1MG - LFS">1mg - 1MG - LFS</option>
-                <option value="1mg - 1MG - LFS">1mg - 1MG - LFS</option>
-                <option value="1mg - 1MG - LFS">1mg - 1MG - LFS</option>
-                <option value="1mg - 1mg-devops">1mg - 1mg-devops</option>
-              </select>
-            </div>
+            <select className="w-full  px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-400">
+              <option value="1mg - (All) ">1mg - (All)</option>
+              <option value="1mg - 1MG - LFS">1mg - 1MG - LFS</option>
+              <option value="1mg - 1MG - LFS">1mg - 1MG - LFS</option>
+              <option value="1mg - 1MG - LFS">1mg - 1MG - LFS</option>
+              <option value="1mg - 1mg-devops">1mg - 1mg-devops</option>
+            </select>
+          </div>
         </div>
 
         {activeService === "EC2" && <EC2Table />}

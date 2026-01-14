@@ -36,6 +36,10 @@ dependencies {
 
     implementation 'org.springframework.boot:spring-boot-starter-validation'
 
+    implementation("net.snowflake:snowflake-jdbc:3.26.1")
+//    implementation 'net.snowflake:snowflake-jdbc:6.0.4'
+
+
     compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
@@ -44,6 +48,11 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-webmvc-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
+
+//bootRun {
+//    jvmArgs = ["--add-opens", "java.base/java.nio=ALL-UNNAMED"]
+//}
+
 
 tasks.named('test') {
 	useJUnitPlatform()

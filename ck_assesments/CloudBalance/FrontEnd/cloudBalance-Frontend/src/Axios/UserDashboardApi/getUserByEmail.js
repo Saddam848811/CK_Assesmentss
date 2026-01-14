@@ -1,14 +1,12 @@
-import axios from 'axios'
-const getUserByEmail = async ()=>{
+import axios from "axios";
+const getUserByEmail = async (email) => {
+  const response = await axios.post(
+    `http://localhost:8080/user/getUserByEmail?email=${email}`,
+    {},
+    { withCredentials: true }
+  );
 
-    console.log("sakhsbdjavdjavdgh");
-    
-    const email = "alice.johnson@example.com"
-    const response =  await axios.post(`http://localhost:8080/user/getUserByEmail?email=${email}`,{},{withCredentials:true})
-
-    console.log(response," from getUserByEmail api");
-    
-    return response
-}
+  return response;
+};
 
 export default getUserByEmail;

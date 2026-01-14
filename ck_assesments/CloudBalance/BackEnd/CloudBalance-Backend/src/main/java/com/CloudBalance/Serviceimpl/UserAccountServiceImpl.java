@@ -19,22 +19,21 @@ import java.util.stream.Collectors;
 @Service
 public class UserAccountServiceImpl implements UserAccountService {
 
-    @Autowired
-    UserRepository userRepository;
-    @Autowired
-    AccountRepository accountRepository;
-    @Autowired
-    AccountMapper accountMapper;
+    private final UserRepository userRepository;
+    private final AccountRepository accountRepository;
 
-
+    public UserAccountServiceImpl(UserRepository userRepository,
+                                  AccountRepository accountRepository) {
+        this.userRepository = userRepository;
+        this.accountRepository = accountRepository;
+    }
 
     @Override
     public List<AccountDto> getAccountsByUserId(Long id) {
 
         UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException("User not found"));
 
-
-        Set<AccountEntity> accountSet =   userEntity.getAccounts();
+        Set<AccountEntity> accountSet = userEntity.getAccounts();
         List<AccountDto> accountDtoList = accountSet.stream()
                 .map(a -> new AccountDto(
                         a.getId(),
@@ -47,25 +46,21 @@ public class UserAccountServiceImpl implements UserAccountService {
                         a.getActive()
                 ))
                 .collect(Collectors.toList());
-        return  accountDtoList;
-
+        return accountDtoList;
     }
 
     @Transactional
     @Override
     public boolean assignAccountToUser(Long userId, Long accountId) {
 
-
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
-
         AccountEntity account = accountRepository.findById(accountId)
                 .orElseThrow(() -> new RuntimeException("Account not found with id:" + accountId));
-
-      boolean flag =   user.getAccounts().add(account);
+        boolean flag = user.getAccounts().add(account);
 
         userRepository.save(user);
-return flag;
+        return flag;
     }
 
     @Override
@@ -74,11 +69,8 @@ return flag;
 
         UserEntity user = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("User not found with id:" + id));
-
         Set<AccountEntity> userAccounts = user.getAccounts();
-
         List<AccountEntity> allAccounts = accountRepository.findAll();
-
         List<AccountDto> accountDtoList = allAccounts.stream()
                 .filter(acc -> !userAccounts.contains(acc))
                 .map(a -> new AccountDto(
@@ -92,31 +84,26 @@ return flag;
                         a.getActive()
                 ))
                 .collect(Collectors.toList());
-
-return accountDtoList;
+        return accountDtoList;
     }
 
     @Override
     public boolean removeAccountFromUser(Long userId, Long accountId) {
 
         UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found woith id : "+ userId));
-
+                .orElseThrow(() -> new RuntimeException("User not found woith id : " + userId));
         AccountEntity accountEntity = accountRepository.findById(accountId)
                 .orElseThrow(() -> new RuntimeException("Account not found with id : " + accountId));
-
         Set<AccountEntity> accountEntitySet = userEntity.getAccounts();
         boolean deleted = accountEntitySet.remove(accountEntity);
         userRepository.save(userEntity);
         return deleted;
-
     }
 
     @Override
-    public List<AccountDto>  getAllAccounts() {
+    public List<AccountDto> getAllAccounts() {
 
-       List<AccountEntity> accountEntityList =  accountRepository.findAll();
-
+        List<AccountEntity> accountEntityList = accountRepository.findAll();
         List<AccountDto> accountDtoList = accountEntityList.stream()
                 .map(entity -> new AccountDto(
                         entity.getId(),
@@ -129,6 +116,6 @@ return accountDtoList;
                         entity.getActive()
                 ))
                 .collect(Collectors.toList());
-       return accountDtoList;
+        return accountDtoList;
     }
 }

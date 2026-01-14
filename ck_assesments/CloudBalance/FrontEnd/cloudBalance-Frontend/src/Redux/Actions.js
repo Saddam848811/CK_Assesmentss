@@ -4,21 +4,27 @@ export const openSidebar = () => {
   };
 };
 
-
-export const loginUser =()=>{
+export const loginUser = () => {
   return {
-    type: "loginUser"
-  }
-}
-export const logoutUser =()=>{
+    type: "loginUser",
+  };
+};
+export const logoutUser = () => {
   return {
-    type: "logoutUser"
-  }
-}
+    type: "logoutUser",
+  };
+};
 
-export const setUserRole =(role)=>{
+export const setUserRole = (role) => {
   return {
     type: "setRole",
-    payload:role
-  }
-}
+    payload: role,
+  };
+};
+
+export const setUserEmail = (role) => {
+  return {
+    type: "setEmail",
+    payload: role,
+  };
+};

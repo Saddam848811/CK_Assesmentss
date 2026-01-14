@@ -8,14 +8,22 @@ spring:
     password: saddam123
     driver-class-name: com.mysql.cj.jdbc.Driver
 
-
   jpa:
     hibernate:
       ddl-auto: update
+      dialect: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
-#    properties:
-#      hibernate:
-#        format_sql: true
-#        dialect: org.hibernate.dialect.MySQL8Dialect
 
+# Snowflake configuration
+snowflake:
+  url: jdbc:snowflake://jgwazim-wu66490.snowflakecomputing.com/
+  warehouse: snowflake_learning_wh
+  database: snowflake_learning_db
+  schema: AWS_CUR
+  role: cost_db_readonly
+  username: cost_read_user
+  password: aws_cost_report_read_only
+  driver-class-name: net.snowflake.client.jdbc.SnowflakeDriver
 
+security:
+  secret: u0v2x5z8C/A?D(G+KbPeShVmYq3t6w9z

@@ -3,15 +3,16 @@ import { IoMdCopy } from "react-icons/io";
 import SpecifyReportDetail from "../../../assets/Accounts/specifyReportDetails.png";
 import SetDeliveryOption from "../../../assets/Accounts/SetDeliveryOption.png";
 import ReportDeliveryOption from "../../../assets/Accounts/ReportDeliveryOption.png";
+import { useNavigate } from "react-router-dom";
 
 function AccountsCreateCostAndUsageReport() {
   const [roleName, setRoleName] = useState("ck-tuner-275595855473-hourly-cur");
+  const navigate = useNavigate();
 
   return (
     <div className="h-[100vh]  bg-[#f6f2f2] flex flex-col">
-     <div className="fixed top-18 left-64 w-full bg-blue-50 z-50 ">
+      <div className="fixed top-18 left-64 w-full bg-blue-50 z-50 ">
         <div className="flex items-center gap-4 px-6 py-4 text-sm text-gray-600">
-          {/* Step A - Completed */}
           <div className="flex items-center gap-2">
             <span className="w-4 h-4 rounded-full border border-gray-400" />
             <span>A. Create an IAM Role</span>
@@ -19,16 +20,14 @@ function AccountsCreateCostAndUsageReport() {
 
           <span className="text-gray-400">{">"}</span>
 
-          {/* Step B */}
-            <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
             <span className="w-4 h-4 rounded-full border border-gray-400" />
             <span>B. Add Customer Managed Policies</span>
           </div>
 
           <span className="text-gray-400">{">"}</span>
 
-          {/* Step E */}
-           <div className="flex items-center gap-2 font-medium text-gray-800">
+          <div className="flex items-center gap-2 font-medium text-gray-800">
             <span className="flex items-center justify-center w-5 h-5 rounded-full border border-green-500 bg-green-50">
               <svg
                 className="w-3 h-3 text-green-600"
@@ -202,31 +201,32 @@ function AccountsCreateCostAndUsageReport() {
               5
             </div>
             <p className="text-gray-900">
-              Click on <b> Next</b> Now, review the configuration of the Cost and Usage Report. Once satisfied, click on <b> Create Report.</b>
+              Click on <b> Next</b> Now, review the configuration of the Cost
+              and Usage Report. Once satisfied, click on <b> Create Report.</b>
             </p>
           </div>
         </div>
-         <div className="flex justify-between mx-9 mt-6 mb-12 py-4">
+        <div className="flex justify-between mx-9 mt-6 mb-12 py-4">
           <button className="bg-blue-50 text-black px-4 py-2 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors">
             Cancel
           </button>
           <div className="w-[350px]  flex justify-between">
             <button
-            onClick={() => {
-              navigate("/accounts-customer-managed-policies");
-            }}
-            className="bg-blue-50 text-black px-4 py-2 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
-          >
-            Back - Setup CUR Replication
-          </button>
-          <button
-            onClick={() => {
-              navigate("/accounts-create-cost-usage-report");
-            }}
-            className="bg-blue-50 text-black px-4 py-2 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
-          >
-            Submit
-          </button>
+              onClick={() => {
+                navigate("/accounts-customer-managed-policies");
+              }}
+              className="bg-blue-50 text-black px-4 py-2 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
+            >
+              Back - Setup CUR Replication
+            </button>
+            <button
+              onClick={() => {
+                navigate("/accounts-create-cost-usage-report");
+              }}
+              className="bg-blue-50 text-black px-4 py-2 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
+            >
+              Submit
+            </button>
           </div>
         </div>
       </div>

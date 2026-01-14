@@ -1,10 +1,10 @@
-import React from 'react'
-import RDSdata from './RDSdata'
+import React from "react";
+import RDSdata from "./RDSdata";
 
 function RDStable() {
   return (
     <div>
-       <div className="mb-5">
+      <div className="mb-5">
         <h1 className="">
           <b>Displaying RDS Resources</b>
         </h1>
@@ -27,13 +27,13 @@ function RDStable() {
               key={item.resourceId}
               className="bg-gray-50 border-gray-200 border hover:bg-blue-50 transition"
             >
-              
               <td className="px-4 py-2 text-center text-gray-700 text-sm">
                 {item.resourceId}
               </td>
               <td className="px-4 py-2 text-center text-gray-700 text-sm">
                 {item.resourceName}
-              </td> <td className="px-4 py-2 text-center text-gray-700 text-sm">
+              </td>{" "}
+              <td className="px-4 py-2 text-center text-gray-700 text-sm">
                 {item.engine}
               </td>
               <td className="px-4 py-2 text-center text-gray-700 text-sm">
@@ -50,14 +50,12 @@ function RDStable() {
                   {item.status}
                 </span>
               </td>
-            
-             
             </tr>
           ))}
         </tbody>
       </table>
     </div>
-  )
+  );
 }
 
-export default RDStable
+export default RDStable;
