@@ -91,7 +91,6 @@ public class CostExplorerServiceImpl implements CostExplorerService {
             result.add(rs.getString(groupByColumn));
         });
         return result;
-
     }
 
     @Override
@@ -104,7 +103,6 @@ public class CostExplorerServiceImpl implements CostExplorerService {
         if (AccountId == null){
             throw new IllegalArgumentException("AccountId must not be empty");
         }
-
         try{
             groupByColumn = groupByColumn.toUpperCase();
         } catch (NullPointerException e) {
@@ -179,8 +177,8 @@ public class CostExplorerServiceImpl implements CostExplorerService {
             String groupByColumn,
             String startDate,
             String endDate,
-            List<String> fieldValue
-            ,String AccountId) {
+            List<String> fieldValue,
+            String AccountId) {
 
         if (fieldValue == null || fieldValue.isEmpty()) {
             throw new IllegalArgumentException("Field must not be empty");

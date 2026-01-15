@@ -102,6 +102,23 @@ function UserDashboard(prop) {
           )}
           <div className="flex  justify-between">
             <button
+              onClick={() => {
+                if (Object.keys(prop).length === 0) {
+                  navigate("/user-table", { state: { refresh: true } });
+                } else {
+                  onClose();
+                }
+              }}
+              className={`px-4 py-2 my-5 ml-5 rounded-lg shadow border border-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors
+    ${
+      Object.keys(prop).length === 0
+        ? "bg-red-200 hover:bg-red-300"
+        : "bg-red-200 hover:bg-red-300"
+    }`}
+            >
+              Cancel
+            </button>
+            <button
               onClick={async (e) => {
                 e.preventDefault();
 
@@ -143,23 +160,6 @@ function UserDashboard(prop) {
               className="bg-blue-50 text-black px-4 py-2 my-5 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors"
             >
               Submit
-            </button>
-            <button
-              onClick={() => {
-                if (Object.keys(prop).length === 0) {
-                  navigate("/user-table", { state: { refresh: true } });
-                } else {
-                  onClose();
-                }
-              }}
-              className={`px-4 py-2 my-5 ml-5 rounded-lg shadow border border-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors
-    ${
-      Object.keys(prop).length === 0
-        ? "bg-red-200 hover:bg-red-300"
-        : "bg-red-200 hover:bg-red-300"
-    }`}
-            >
-              Cancel
             </button>
           </div>
         </div>

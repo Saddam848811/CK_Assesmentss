@@ -54,9 +54,9 @@ public class UserAccountServiceImpl implements UserAccountService {
     public boolean assignAccountToUser(Long userId, Long accountId) {
 
         UserEntity user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+                .orElseThrow(() -> new IllegalStateException("User not found with id: " + userId));
         AccountEntity account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new RuntimeException("Account not found with id:" + accountId));
+                .orElseThrow(() -> new IllegalStateException("Account not found with id:" + accountId));
         boolean flag = user.getAccounts().add(account);
 
         userRepository.save(user);
@@ -68,7 +68,7 @@ public class UserAccountServiceImpl implements UserAccountService {
 
 
         UserEntity user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found with id:" + id));
+                .orElseThrow(() -> new IllegalStateException("User not found with id:" + id));
         Set<AccountEntity> userAccounts = user.getAccounts();
         List<AccountEntity> allAccounts = accountRepository.findAll();
         List<AccountDto> accountDtoList = allAccounts.stream()
@@ -91,9 +91,9 @@ public class UserAccountServiceImpl implements UserAccountService {
     public boolean removeAccountFromUser(Long userId, Long accountId) {
 
         UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found woith id : " + userId));
+                .orElseThrow(() -> new IllegalStateException("User not found woith id : " + userId));
         AccountEntity accountEntity = accountRepository.findById(accountId)
-                .orElseThrow(() -> new RuntimeException("Account not found with id : " + accountId));
+                .orElseThrow(() -> new IllegalStateException("Account not found with id : " + accountId));
         Set<AccountEntity> accountEntitySet = userEntity.getAccounts();
         boolean deleted = accountEntitySet.remove(accountEntity);
         userRepository.save(userEntity);

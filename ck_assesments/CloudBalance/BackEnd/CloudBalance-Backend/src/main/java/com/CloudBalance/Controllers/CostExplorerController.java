@@ -9,6 +9,7 @@ import jakarta.validation.constraints.Pattern;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,23 +28,27 @@ public class CostExplorerController {
         this.costExplorerService = costExplorerService;
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping("getData")
     public ResponseEntity<List<Map<String, Object>>> getData() {
         return new ResponseEntity<>(costExplorerService.getData(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','READONLY','CUSTOMER')")
     @PostMapping("groupBy")
     public ResponseEntity<List<GroupByDTOResponse>> groupBy(@Valid @RequestBody GroupByDTO groupByDTO) {
         List<GroupByDTOResponse> groupByDTOResponseList = costExplorerService.groupBy(groupByDTO.getGroupByColumn(), groupByDTO.getStartDate(), groupByDTO.getEndDate());
         return new ResponseEntity<>(groupByDTOResponseList, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','READONLY','CUSTOMER')")
     @GetMapping("getDates")
     public ResponseEntity<List<GroupByDTOResponse>> getDates() {
         List<GroupByDTOResponse> groupByDTOResponseList = costExplorerService.getDates();
         return new ResponseEntity<>(groupByDTOResponseList, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','READONLY','CUSTOMER')")
     @PostMapping("getGroupByColumn")
     public ResponseEntity<List<String>> getGroupByColumn(@RequestParam
                                                          @NotBlank(message = "GroupByColumn must not be empty")
@@ -55,22 +60,23 @@ public class CostExplorerController {
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','READONLY','CUSTOMER')")
     @PostMapping("getGroupByColumnByAccountId")
     public ResponseEntity<List<GroupByDTOResponse>> getGroupByColumnByAccountId(@RequestBody GroupByDTO groupByDTO) {
         List<GroupByDTOResponse> list = costExplorerService.getGroupByColumnByAccountId(groupByDTO.getGroupByColumn(), groupByDTO.getStartDate(), groupByDTO.getEndDate(), groupByDTO.getAccountId());
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','READONLY','CUSTOMER')")
     @PostMapping("getGroupByColumnField")
     public ResponseEntity<List<GroupByDTOResponse>> getGroupByColumnField(@Valid @RequestBody GroupByDTO groupByDTO) {
-
         List<GroupByDTOResponse> groupByDTOResponseList = costExplorerService.getGroupByColumnField(groupByDTO.getGroupByColumn(), groupByDTO.getStartDate(), groupByDTO.getEndDate(), groupByDTO.getFields());
         return new ResponseEntity<>(groupByDTOResponseList, HttpStatus.OK);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','READONLY','CUSTOMER')")
     @PostMapping("getGroupByColumnFieldByAccountId")
     public ResponseEntity<List<GroupByDTOResponse>> getGroupByColumnFieldByAccountId(@Valid @RequestBody GroupByDTO groupByDTO) {
-
         List<GroupByDTOResponse> groupByDTOResponseList = costExplorerService.getGroupByColumnFieldByAccountId(groupByDTO.getGroupByColumn(), groupByDTO.getStartDate(), groupByDTO.getEndDate(), groupByDTO.getFields(), groupByDTO.getAccountId());
         return new ResponseEntity<>(groupByDTOResponseList, HttpStatus.OK);
     }

@@ -12,11 +12,10 @@ import java.util.Date;
 @Component
 public class JwtUtils {
 
-    //    private final String SECRET = "u0v2x5z8C/A?D(G+KbPeShVmYq3t6w9z";
     @Value("${security.secret}")
     private String SECRET;
-    private final long EXPIRATION = 1000 * 60 * 10;
-    private final long REFRESH_EXPIRATION = 1000 * 60 * 30;
+    private final long EXPIRATION = 1000 * 60 * 20;
+    private final long REFRESH_EXPIRATION = 1000 * 60 * 60;
 
     private Key getKey() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());

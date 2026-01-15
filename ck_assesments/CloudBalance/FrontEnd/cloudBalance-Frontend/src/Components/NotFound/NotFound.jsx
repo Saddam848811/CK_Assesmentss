@@ -15,10 +15,10 @@ function NotFound() {
           Oops! The page you're looking for doesn't exist or has been moved.
         </p>
         <button
-          onClick={() => navigate("/user-login")}
+          onClick={() => navigate("/user-table")}
           className="bg-blue-100 text-black px-4 py-2 mb-5  rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] transition"
         >
-          Go Back Login...
+          Go Back to Dashboard...
         </button>
       </div>
     </div>

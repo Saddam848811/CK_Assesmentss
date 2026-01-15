@@ -30,7 +30,7 @@ public class UserAccountController {
         this.userAccountService = userAccountService;
     }
 
-
+    @PreAuthorize("hasAnyRole('ADMIN','READONLY')")
     @PostMapping("/getAllAccounts")
     public List<AccountDto> getAllAccounts() {
         return userAccountService.getAllAccounts();

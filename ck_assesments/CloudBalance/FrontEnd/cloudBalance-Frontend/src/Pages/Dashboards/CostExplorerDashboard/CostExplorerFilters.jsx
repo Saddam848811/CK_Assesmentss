@@ -4,17 +4,7 @@ import { groupByColumnFieldApi } from "../../../Axios/CostExplorer/getGroupByCol
 import { FaArrowAltCircleDown } from "react-icons/fa";
 import { FaArrowAltCircleUp } from "react-icons/fa";
 import { getGroupByColumnFieldByAccountIdApi } from "../../../Axios/CostExplorer/getGroupByColumnFieldByAccountIdApi";
-
-const groupByOptions = [
-  "SERVICE",
-  "INSTANCE_TYPE",
-  "ACCOUNT_ID",
-  "USAGE_TYPE",
-  "PLATFORM",
-  "REGION",
-  "USAGE_TYPE_GROUP",
-  "PURCHASE_OPTION",
-];
+import { groupByOptions } from "../../../Components/Charts/costExplorerData";
 
 function CostExplorerFilters({
   startDate,
@@ -27,6 +17,7 @@ function CostExplorerFilters({
   const [filterValues, setFilterValues] = useState({});
   const [expandedGroup, setExpandedGroup] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedGroupBy, setSelectedGroupBy] = useState(null);
 
   useEffect(() => {
     groupByOptions.forEach((g) => {

@@ -15,7 +15,6 @@ function Accounts() {
   const [activeAccount, setActiveAccount] = useState(null);
 
   const userRole = useSelector((state) => state.role?.userRole ?? null);
-  console.log(userRole, "user roles from accounts comp");
 
   useEffect(() => {
     if (userRole === "ROLE_CUSTOMER") {
@@ -25,7 +24,6 @@ function Accounts() {
 
     const getAccountsfun = async () => {
       const response = await getAccountsApi();
-      console.log(response, "from account comp");
       if (response.data) {
         setLoading(false);
       }

@@ -166,7 +166,7 @@ function AccountsIAMRole() {
           </div>
         </div>
         <div className="flex justify-between mx-9 mt-6 mb-12 py-4">
-          <button className="bg-blue-50 text-black px-4 py-2 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors">
+          <button onClick={navigate("/user-account-management")} className="bg-blue-50 text-black px-4 py-2 rounded-lg shadow border border-[#85c6f8] hover:bg-[#85c6f8] focus:outline-none focus:ring-2 focus:ring-blue-100 transition-colors">
             Cancel
           </button>
           <button

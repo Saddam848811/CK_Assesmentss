@@ -199,6 +199,17 @@ public class GlobalExceptionHandler {
         errorDetails.put("message",  ex.getMessage());
 
         return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
+
+    }
+
+    @ExceptionHandler(NullAccountIdException.class)
+    public ResponseEntity<Map<String, Object>> handleNullAccountIdException(NullAccountIdException ex) {
+        Map<String, Object> errorDetails = new HashMap<>();
+        errorDetails.put("timestamp", LocalDateTime.now());
+        errorDetails.put("status", HttpStatus.NOT_FOUND.value());
+        errorDetails.put("message",  ex.getMessage());
+
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(NoResourceFoundException.class)

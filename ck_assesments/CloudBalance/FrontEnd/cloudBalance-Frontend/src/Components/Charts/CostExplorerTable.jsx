@@ -8,16 +8,7 @@ import { BsFillFilterSquareFill } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import { getAccountIdByEmailApi } from "../../Axios/AccountOnboardingApi/getAccountIdByEmailApi.js";
 import { getGroupByColumnByAccountIdApi } from "../../Axios/CostExplorer/getGroupByColumnByAccountIdApi.js";
-
-const groupByOptions = [
-  "SERVICE",
-  "INSTANCE_TYPE",
-  "ACCOUNT_ID",
-  "USAGE_TYPE",
-  "PLATFORM",
-  "REGION",
-  "USAGE_TYPE_GROUP",
-];
+import { groupByOptions, labelColors } from "./costExplorerData.js";
 
 const CostExplorerTable = () => {
   const userRole = useSelector((state) => state.role?.userRole ?? null);
@@ -51,9 +42,9 @@ const CostExplorerTable = () => {
     ) {
       return;
     }
-    if (userRole === "ROLE_CUSTOMER" && !selectedAccount) {
-      setLoading(false);
-    }
+    // if (userRole === "ROLE_CUSTOMER" && !selectedAccount) {
+    //   setLoading(false);
+    // }
 
     const fetchCustomerGroupByData = async () => {
       try {
@@ -140,7 +131,7 @@ const CostExplorerTable = () => {
     };
 
     fetchGroupByData();
-  }, [groupBy, startDate, endDate]);
+  }, [groupBy, startDate, endDate, userRole]);
 
   const finalDataSource = useMemo(() => {
     if (
@@ -204,41 +195,6 @@ const CostExplorerTable = () => {
   }, [filteredData, startDate, endDate, availableDates]);
 
   const chartDataForChartJS = useMemo(() => {
-    const labelColors = [
-      "#2B98FB",
-      "#76DDFB",
-      "#FF9F22",
-      "#A8E03F",
-      "#a855f7",
-      "#0ea5e9",
-      "#14b8a6",
-      "#A8E03F",
-      "#22c55e",
-      "#eab308",
-      "#6366f1",
-      "#ec4899",
-      "#f97316",
-      "#84cc16",
-      "#FF7F0E",
-      "#D62728",
-      "#17BECF",
-      "#7F7F7F",
-      "#AEC7E8",
-      "#FFBB78",
-      "#98DF8A",
-      "#C5B0D5",
-      "#F7B6D2",
-      "#DBDB8D",
-      "#9EDAE5",
-      "#C49C94",
-      "#8C564B",
-      "#E377C2",
-      "#7F7F7F",
-      "#BCBD22",
-      "#17A2B8",
-      "#FF6347",
-      "#6A5ACD",
-    ];
     return {
       labels: costExplorerData.labels,
       datasets: costExplorerData.datasets.map((ds, index) => {
@@ -266,13 +222,13 @@ const CostExplorerTable = () => {
           <>
             <div className="flex items-center flex-wrap gap-2">
               <h1 className="mr-5 text-lg font-bold">Group By:</h1>
-              {groupByOptions.map((option) => {
+              {groupByOptions.map((option, index) => {
                 if (userRole === "ROLE_CUSTOMER" && option === "ACCOUNT_ID") {
                   return null;
                 }
                 return (
                   <button
-                    key={option}
+                    key={index}
                     className={`bg-blue-50 border border-blue-300 px-3 py-1 text-sm shadow hover:bg-blue-200 transition ${
                       groupBy === option ? "bg-blue-300 font-semibold" : ""
                     }`}
@@ -328,7 +284,11 @@ const CostExplorerTable = () => {
             </div>
             <button
               onClick={() => setIsFiltersOpen((prev) => !prev)}
-              className={`px-3 py-1 border rounded ml-5 mb-5 transition${isFiltersOpen? "bg-blue-500 text-white border-blue-500": "bg-blue-50 text-blue-500 border-[#85c6f8]"}`}
+              className={`px-3 py-1 border rounded ml-5 mb-5 transition${
+                isFiltersOpen
+                  ? "bg-blue-500 text-white border-blue-500"
+                  : "bg-blue-50 text-blue-500 border-[#85c6f8]"
+              }`}
             >
               <BsFillFilterSquareFill />
             </button>
@@ -403,9 +363,7 @@ const CostExplorerTable = () => {
         )}
       </div>
       {isFiltersOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-transparent backdrop-blur-sm"
-        >
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-transparent backdrop-blur-sm">
           <div className="bg-white  rounded shadow-lg w-96 relative">
             <CostExplorerFilters
               setIsFiltersOpenFun={setIsFiltersOpen}

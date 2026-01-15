@@ -32,7 +32,6 @@ public class AccountController {
     @PreAuthorize("hasAnyRole('ADMIN','READONLY')")
     @GetMapping("/getAccounts")
     public ResponseEntity<List<AccountDto>> getAccounts(Authentication authentication){
-        System.out.println( "hii from get accounts method");
 
         List<AccountDto>  list = accountService.getAccounts();
         List<AccountDto> activeAccountList = new ArrayList<AccountDto>();
@@ -49,8 +48,6 @@ public class AccountController {
 
            list = activeAccountList;
         }
-
-
         return new ResponseEntity<List<AccountDto>>(list, HttpStatus.OK);
     }
 
@@ -60,6 +57,7 @@ public class AccountController {
         accountService.setActive(id);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN','READONLY','CUSTOMER')")
     @GetMapping("/getAccountIdByEmail")
     public ResponseEntity<List<String>> getAccountIdByEmail(@RequestParam  String email){
 

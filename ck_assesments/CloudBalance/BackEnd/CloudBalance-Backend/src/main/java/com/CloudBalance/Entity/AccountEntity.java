@@ -42,16 +42,5 @@ public class AccountEntity {
                 ", active=" + active +
                 '}';
     }
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof AccountEntity)) return false;
-        AccountEntity that = (AccountEntity) o;
-        return id != null && id.equals(that.id);
-    }
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
-    }
 
 }

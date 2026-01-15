@@ -31,7 +31,6 @@ public class UserController {
         this.userService = userService;
     }
 
-
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/addUser")
     public ResponseEntity<UserDto> addUser(@Validated @RequestBody UserDto userDto){

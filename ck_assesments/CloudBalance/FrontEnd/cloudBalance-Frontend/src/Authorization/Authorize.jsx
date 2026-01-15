@@ -14,6 +14,9 @@ function Authorize() {
     const authenticationCheck = async () => {
       try {
         const authCheckres = await authCheck();
+
+        console.log(authCheck,"authcheck res");
+        
         setStatus(authCheckres.status);
         dispatch(setUserRole(authCheckres.data.authorities[0].authority));
         dispatch(setUserEmail(authCheckres.data.username));

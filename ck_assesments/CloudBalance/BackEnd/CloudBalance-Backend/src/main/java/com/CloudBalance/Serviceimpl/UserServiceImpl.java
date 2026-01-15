@@ -12,6 +12,7 @@ import com.CloudBalance.Repository.UserRepository;
 import com.CloudBalance.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,24 +27,21 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService {
 
 
-    private  UserRepository userRepository;
-    private  UserDto userDto;
-    private  PasswordEncoder passwordEncoder;
-    private  UserMapper userMapper;
-    private  AccountMapper accountMapper;
-    private  AccountRepository accountRepository;
+    private final UserRepository userRepository;
+    private UserDto userDto;
+    private final PasswordEncoder passwordEncoder;
+    private final UserMapper userMapper;
+    private final AccountRepository accountRepository;
 
     public UserServiceImpl(UserRepository userRepository,
                            UserDto userDto,
                            PasswordEncoder passwordEncoder,
                            UserMapper userMapper,
-                           AccountMapper accountMapper,
                            AccountRepository accountRepository) {
         this.userRepository = userRepository;
         this.userDto = userDto;
         this.passwordEncoder = passwordEncoder;
         this.userMapper = userMapper;
-        this.accountMapper = accountMapper;
         this.accountRepository = accountRepository;
     }
 
@@ -58,24 +56,26 @@ public class UserServiceImpl implements UserService {
         userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
         Set<AccountEntity> accountEntitySet = new HashSet<>();
 
-        if ("ADMIN".equals(userEntity.getRole()) || "READONLY".equals(userEntity.getRole())) {
+        if (userEntity.getRole().equals("ADMIN") || userEntity.getRole().equals("READONLY")) {
+            if (userDto.getAccountList() != null && !userDto.getAccountList().isEmpty()) {
+                throw new IllegalStateException("Accounts must not be assigned for Admin/ReadOnly");
+            }
             accountEntitySet.addAll(accountRepository.findAll());
         }
-        if ("CUSTOMER".equals(userEntity.getRole())) {
-            if (userDto.getAccountList() != null) {
-                for (AccountDto accountDto : userDto.getAccountList()) {
-
-                    AccountEntity accountEntity = accountRepository
-                            .findById(accountDto.getId())
-                            .orElseThrow(() ->
-                                    new RuntimeException("Account not found with id " + accountDto.getId())
-                            );
-                    accountEntitySet.add(accountEntity);
-                }
-            } else if (userDto.getAccountList() == null) {
+        if (userEntity.getRole().equals("CUSTOMER")) {
+            if (userDto.getAccountList() == null || userDto.getAccountList().isEmpty()) {
                 throw new IllegalStateException("Accounts must be assigned for Customer Role");
             }
+            for (AccountDto accountDto : userDto.getAccountList()) {
+                AccountEntity accountEntity = accountRepository
+                        .findById(accountDto.getId())
+                        .orElseThrow(() ->
+                                new IllegalStateException("Account not found with id " + accountDto.getId())
+                        );
+                accountEntitySet.add(accountEntity);
+            }
         }
+
         userEntity.setAccounts(accountEntitySet);
         UserEntity savedUser = userRepository.save(userEntity);
 
@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Long id) {
-        UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found with id: " + id));
+        UserEntity userEntity = userRepository.findById(id).orElseThrow(() -> new IllegalStateException("User not found with id: " + id));
         userEntity.setPassword(null);
         userDto = userMapper.entityToDto(userEntity);
         return userDto;
@@ -97,10 +97,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto editUserById(UserDto userDto) {
 
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String loggedInUsername = authentication.getName();
+
+
         UserEntity userEntity = userRepository.findById(userDto.getId())
                 .orElseThrow(() ->
                         new UserNotFoundException("User not found with id: " + userDto.getId())
                 );
+
+        if (userEntity.getEmail().equals(loggedInUsername)) {
+            throw new IllegalStateException("You cannot edit your own account");
+        }
+
         userEntity.setUsername(userDto.getUsername());
         userEntity.setPassword(passwordEncoder.encode(userDto.getPassword()));
         userEntity.setEmail(userDto.getEmail());
@@ -109,16 +119,20 @@ public class UserServiceImpl implements UserService {
 
         userEntity.getAccounts().clear();
 
-        if ("ADMIN".equals(userDto.getRole()) || "READONLY".equals(userDto.getRole())) {
+        if (userEntity.getRole().equals("ADMIN") || userEntity.getRole().equals("READONLY")) {
+            if (userDto.getAccountList() != null && !userDto.getAccountList().isEmpty()) {
+                throw new IllegalStateException("Accounts must not be assigned for Admin/ReadOnly");
+            }
             List<AccountEntity> allAccounts = accountRepository.findAll();
             userEntity.getAccounts().addAll(allAccounts);
-        } else if ("CUSTOMER".equals(userDto.getRole())) {
+        }
+        if (userDto.getRole().equals("CUSTOMER")) {
             if (userDto.getAccountList() != null) {
                 for (AccountDto accountDto : userDto.getAccountList()) {
                     AccountEntity accountEntity = accountRepository
                             .findById(accountDto.getId())
                             .orElseThrow(() ->
-                                    new RuntimeException("Account not found with id " + accountDto.getId())
+                                    new IllegalStateException("Account not found with id " + accountDto.getId())
                             );
                     userEntity.getAccounts().add(accountEntity);
                 }

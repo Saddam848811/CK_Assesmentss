@@ -1,10 +1,12 @@
 package com.CloudBalance.Controllers;
 
 import com.CloudBalance.DTO.LoginDto;
+import com.CloudBalance.Entity.UserEntity;
 import com.CloudBalance.Exception.InvalidToken;
 import com.CloudBalance.Exception.JwtAuthenticationException;
 import com.CloudBalance.Exception.NulltokenException;
 import com.CloudBalance.Exception.UserNotFoundException;
+import com.CloudBalance.Repository.UserRepository;
 import com.CloudBalance.Serviceimpl.CustomUserDetailsService;
 import com.CloudBalance.Utils.JwtUtils;
 import jakarta.servlet.http.HttpServletResponse;
@@ -33,23 +35,17 @@ public class AuthController {
     private final CustomUserDetailsService customUserDetailsService;
     private final JwtUtils jwtUtils;
     private final PasswordEncoder passwordEncoder;
+    private  UserRepository userRepository;
 
     public AuthController(CustomUserDetailsService customUserDetailsService,
                           JwtUtils jwtUtils,
-                          PasswordEncoder passwordEncoder) {
+                          PasswordEncoder passwordEncoder,
+                          UserRepository userRepository) {
         this.customUserDetailsService = customUserDetailsService;
         this.jwtUtils = jwtUtils;
         this.passwordEncoder = passwordEncoder;
+        this.userRepository = userRepository;
     }
-
-
-//    @GetMapping("/authCheck")
-//    public ResponseEntity<?> authCheck(Authentication authentication) {
-//        if (authentication == null) {
-//            throw new IllegalStateException("User not Authenticated");
-//        }
-//        return ResponseEntity.ok(authentication);
-//    }
 
     @GetMapping("/authCheck")
     public ResponseEntity<?> authCheck(Authentication authentication) {
@@ -64,13 +60,16 @@ public class AuthController {
         return ResponseEntity.ok(response);
     }
 
-
-
     @PostMapping("/login")
     public ResponseEntity<String> login(@Valid @RequestBody LoginDto loginDto) {
 
+       UserEntity userEntity =  userRepository.findByEmail(loginDto.getEmail()).orElseThrow(()-> new IllegalStateException("user not found"));
 
+       if(!userEntity.isActive()){
+           throw new IllegalArgumentException("user is ont active");
+       }
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(loginDto.getEmail());
+
 
         boolean match = passwordEncoder.matches(loginDto.getPassword(), userDetails.getPassword());
 
